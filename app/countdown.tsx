@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const TARGET_TIME = new Date("2026-08-24T23:59:00-07:00").getTime();
 
@@ -102,6 +102,16 @@ function LedGroup({
 
 export function Countdown() {
   const [remaining, setRemaining] = useState<RemainingTime | null>(null);
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
+  const countdownRef = useRef<HTMLElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelScheduledClose = () => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  };
 
   useEffect(() => {
     const update = () => setRemaining(getRemainingTime());
@@ -110,23 +120,99 @@ export function Countdown() {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const closeOnOutsidePress = (event: PointerEvent) => {
+      if (
+        isSupportOpen &&
+        countdownRef.current &&
+        !countdownRef.current.contains(event.target as Node)
+      ) {
+        setIsSupportOpen(false);
+      }
+    };
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsSupportOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    document.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsidePress);
+      document.removeEventListener("keydown", closeOnEscape);
+      cancelScheduledClose();
+    };
+  }, [isSupportOpen]);
+
   const time = remaining ?? { days: 0, hours: 0, minutes: 0, seconds: 0 };
   const label = `${time.days} days, ${time.hours} hours, ${time.minutes} minutes, and ${time.seconds} seconds remaining`;
 
   return (
     <section
+      ref={countdownRef}
       className={`countdown${remaining ? " isReady" : ""}`}
-      role="timer"
-      aria-label={label}
+      onMouseEnter={() => {
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          cancelScheduledClose();
+          setIsSupportOpen(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          cancelScheduledClose();
+          closeTimerRef.current = setTimeout(() => {
+            setIsSupportOpen(false);
+            closeTimerRef.current = null;
+          }, 320);
+        }
+      }}
     >
-      <div className="countdownDisplay">
-        <LedGroup value={time.days} label="Days" tone="orange" />
-        <LedColon tone="orange" />
-        <LedGroup value={time.hours} label="Hours" tone="orange" />
-        <LedColon tone="orange" />
-        <LedGroup value={time.minutes} label="Minutes" tone="orange" />
-        <LedColon tone="gold" />
-        <LedGroup value={time.seconds} label="Seconds" tone="gold" />
+      <button
+        className="countdownTrigger"
+        type="button"
+        aria-expanded={isSupportOpen}
+        aria-controls="countdown-support-panel"
+        aria-label={`${label}. Learn how to support Imaginal on YouTube.`}
+        onClick={() => {
+          const canHover = window.matchMedia(
+            "(hover: hover) and (pointer: fine)",
+          ).matches;
+          setIsSupportOpen((current) => (!canHover && current ? false : true));
+        }}
+        onFocus={() => setIsSupportOpen(true)}
+      >
+        <span className="countdownDisplay" aria-hidden="true">
+          <LedGroup value={time.days} label="Days" tone="orange" />
+          <LedColon tone="orange" />
+          <LedGroup value={time.hours} label="Hours" tone="orange" />
+          <LedColon tone="orange" />
+          <LedGroup value={time.minutes} label="Minutes" tone="orange" />
+          <LedColon tone="gold" />
+          <LedGroup value={time.seconds} label="Seconds" tone="gold" />
+        </span>
+      </button>
+
+      <div
+        id="countdown-support-panel"
+        className={`partnerPanel countdownPanel${isSupportOpen ? " isOpen" : ""}`}
+        aria-hidden={!isSupportOpen}
+      >
+        <p>
+          If you like this film, please go like and comment on our YouTube to
+          help us win the XPRIZE $3.5M AI video contest that ends soon! We
+          really appreciate it. We&apos;ve worked so hard on this film and would
+          love to bring it to the big screen.
+        </p>
+        <a
+          className="glassPill"
+          href="https://www.youtube.com/watch?v=pdDNh8P1VNs"
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={isSupportOpen ? 0 : -1}
+        >
+          Like &amp; Comment
+        </a>
       </div>
     </section>
   );

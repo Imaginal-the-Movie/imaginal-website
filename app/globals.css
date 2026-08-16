@@ -245,19 +245,43 @@ main:has(.partnerPanel.isOpen),
   width: max-content;
   max-width: 94vw;
   opacity: 0;
-  pointer-events: none;
   filter: drop-shadow(0 0 12px rgba(254, 130, 57, 0.1));
   transform: translateX(-50%);
   transition: opacity 300ms ease;
 }
 
 .countdown.isReady { opacity: 1; }
+.countdown:has(.countdownPanel.isOpen) { z-index: 6; }
+
+.countdownTrigger {
+  display: block;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: url("/butterfly-cursor.svg") 16 16, pointer;
+}
+
+.countdownTrigger:focus-visible {
+  outline: 1px solid rgba(235, 238, 245, 0.68);
+  outline-offset: 7px;
+}
 
 .countdownDisplay {
   display: flex;
   align-items: flex-start;
   gap: clamp(5px, 0.72vw, 10px);
 }
+
+.countdownPanel {
+  top: auto;
+  bottom: calc(100% + clamp(10px, 1.4vw, 18px));
+  left: 50%;
+  width: min(460px, calc(100vw - 32px));
+  transform: translate(-50%, 7px);
+}
+
+.countdownPanel.isOpen { transform: translate(-50%, 0); }
 
 .ledTone-orange {
   --led-color: #fe8239;
@@ -465,6 +489,14 @@ main:has(.partnerPanel.isOpen),
 
   .partnerLogoSpotVyby .partnerPanel { left: 12px; }
   .partnerLogoSpotPti .partnerPanel { right: 12px; }
+
+  .countdownPanel {
+    top: auto;
+    right: auto;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    width: min(360px, calc(100vw - 24px));
+  }
 }
 
 @media (hover: none), (pointer: coarse) {
