@@ -35,21 +35,192 @@ main { position: relative; width: 100%; height: 100svh; overflow: hidden; }
 .webglBackdrop canvas { display: block; }
 .noiseOverlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-.partnerLogo {
+.partnerLogoSpot {
   position: absolute;
   top: 0;
-  z-index: 3;
-  width: auto;
+  z-index: 4;
   height: min(33svh, 23vw);
   max-width: 34vw;
-  object-fit: contain;
+}
+
+.partnerLogoSpotVyby { left: 0; }
+.partnerLogoSpotPti { right: 0; }
+
+.partnerLogoTrigger {
+  display: block;
+  width: auto;
+  height: 100%;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
   opacity: calc(0.94 - var(--pointer-center-proximity) * 0.94);
-  pointer-events: none;
+  cursor: url("/butterfly-cursor.svg") 16 16, pointer;
+}
+
+.partnerLogoImage {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 34vw;
+  object-fit: contain;
   filter: drop-shadow(0 0 18px rgba(0, 0, 0, 0.38));
 }
 
-.partnerLogoVyby { left: 0; }
-.partnerLogoPti { right: 0; }
+.partnerLogoTrigger:focus-visible {
+  outline: 1px solid rgba(235, 238, 245, 0.82);
+  outline-offset: -2px;
+}
+
+.partnerPanel {
+  position: absolute;
+  top: calc(100% + clamp(8px, 1.4vw, 18px));
+  z-index: 5;
+  display: flex;
+  width: min(330px, calc(100vw - 32px));
+  padding: clamp(15px, 1.7vw, 22px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  color: #f7f8fa;
+  background: rgba(5, 6, 8, 0.18);
+  border: 1px solid rgba(226, 229, 235, 0.6);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 1px rgba(100, 106, 116, 0.22),
+    0 0 30px rgba(210, 218, 232, 0.1),
+    inset 0 0 20px rgba(230, 234, 242, 0.04);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateY(-7px);
+  transition: opacity 200ms ease, transform 200ms ease, visibility 0s linear 200ms;
+}
+
+.partnerLogoSpotVyby .partnerPanel { left: clamp(12px, 2vw, 30px); }
+.partnerLogoSpotPti .partnerPanel { right: clamp(12px, 2vw, 30px); }
+
+.partnerPanel.isOpen {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.partnerPanel p {
+  font-size: clamp(0.86rem, 1.05vw, 0.98rem);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.glassPill {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: 44px;
+  padding: 0.65rem 1.05rem;
+  align-items: center;
+  justify-content: center;
+  color: #f7f8fa;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  background: rgba(5, 6, 8, 0.18);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-shadow:
+    0 0 24px rgba(210, 218, 232, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(63, 68, 77, 0.42),
+    inset 0 0 16px rgba(230, 234, 242, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease, transform 200ms ease;
+}
+
+.glassPill::before {
+  position: absolute;
+  inset: -1px;
+  padding: 1.35px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 214deg,
+    rgba(214, 220, 229, 0.88) 0%,
+    rgba(255, 255, 255, 1) 17%,
+    rgba(223, 228, 236, 0.96) 34%,
+    rgba(126, 134, 147, 0.88) 52%,
+    rgba(57, 62, 72, 0.82) 68%,
+    rgba(126, 134, 147, 0.9) 83%,
+    rgba(214, 220, 229, 0.88) 100%
+  );
+  content: "";
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.38));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: filter 200ms ease, opacity 200ms ease;
+}
+
+.glassPill::after {
+  position: absolute;
+  inset: 0.35px;
+  padding: 0.8px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 34deg,
+    rgba(69, 75, 86, 0.72) 0%,
+    rgba(144, 152, 165, 0.82) 22%,
+    rgba(236, 239, 244, 0.72) 43%,
+    rgba(118, 125, 138, 0.78) 63%,
+    rgba(48, 53, 62, 0.76) 82%,
+    rgba(69, 75, 86, 0.72) 100%
+  );
+  content: "";
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.82;
+  transition: filter 200ms ease, opacity 200ms ease;
+}
+
+.glassPill:hover,
+.glassPill:focus-visible {
+  background: rgba(16, 18, 22, 0.34);
+  box-shadow:
+    0 0 34px rgba(218, 225, 239, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(63, 68, 77, 0.48),
+    inset 0 0 20px rgba(235, 238, 245, 0.09);
+  outline: none;
+  transform: scale(1.025);
+}
+
+.glassPill:hover::before,
+.glassPill:focus-visible::before {
+  filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.62));
+}
+
+.glassPill:hover::after,
+.glassPill:focus-visible::after {
+  opacity: 1;
+  filter: drop-shadow(0 0 3px rgba(209, 216, 227, 0.34));
+}
+
+main:has(.partnerPanel.isOpen),
+.partnerPanel.isOpen,
+.partnerPanel.isOpen * {
+  cursor: url("/butterfly-cursor.svg") 16 16, pointer;
+}
 
 .filmLogo {
   position: absolute;
@@ -155,7 +326,9 @@ main { position: relative; width: 100%; height: 100svh; overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .playButton,
-  .videoOverlay { transition: none; }
+  .videoOverlay,
+  .partnerPanel,
+  .glassPill { transition: none; }
 }
 
 @media (max-width: 640px) {
@@ -163,17 +336,27 @@ main { position: relative; width: 100%; height: 100svh; overflow: hidden; }
 }
 
 @media (max-aspect-ratio: 4 / 5) {
-  .partnerLogo {
+  .partnerLogoSpot {
     top: 0;
     height: min(15svh, 35vw);
     max-width: 42vw;
   }
 
-  .partnerLogoVyby { left: 0; }
-  .partnerLogoPti { right: 0; }
+  .partnerLogoImage { max-width: 42vw; }
+
+  .partnerPanel {
+    top: calc(100% + 8px);
+    width: min(300px, calc(100vw - 24px));
+    padding: 15px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+
+  .partnerLogoSpotVyby .partnerPanel { left: 12px; }
+  .partnerLogoSpotPti .partnerPanel { right: 12px; }
 }
 
 @media (hover: none), (pointer: coarse) {
   .imageBackdrop { opacity: 0.5; }
-  .partnerLogo { opacity: 0.94; }
+  .partnerLogoTrigger { opacity: 0.94; }
 }
