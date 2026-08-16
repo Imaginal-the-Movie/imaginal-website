@@ -245,7 +245,6 @@ main:has(.partnerPanel.isOpen),
   width: max-content;
   max-width: 94vw;
   opacity: 0;
-  filter: drop-shadow(0 0 12px rgba(254, 130, 57, 0.1));
   transform: translateX(-50%);
   transition: opacity 300ms ease;
 }
@@ -260,6 +259,7 @@ main:has(.partnerPanel.isOpen),
   background: transparent;
   border: 0;
   cursor: url("/butterfly-cursor.svg") 16 16, pointer;
+  filter: drop-shadow(0 0 12px rgba(254, 130, 57, 0.1));
 }
 
 .countdownTrigger:focus-visible {
