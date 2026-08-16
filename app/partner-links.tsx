@@ -24,7 +24,7 @@ const partners: Partner[] = [
     width: 1299,
     height: 1211,
     message:
-      "Visit the site. Join the waitlist for the AI Video Creator Development League.",
+      "Visit the site to join the waitlist for the AI Video Creator Development League.",
     buttonLabel: "Join the waitlist",
     href: "https://vyby.com",
   },
@@ -34,7 +34,7 @@ const partners: Partner[] = [
     imageSrc: "/pti-logo.png",
     width: 454,
     height: 423,
-    message: "Visit the site. Sign the pledge advancing positive technology.",
+    message: "Visit the site to sign the pledge advancing positive technology.",
     buttonLabel: "Sign the pledge",
     href: "https://www.positivetechinstitute.org/pledge",
   },
