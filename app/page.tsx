@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Countdown } from "./countdown";
 import { ImageBackdrop } from "./image-backdrop";
 import { OrganismField } from "./organism-field";
 import { PartnerLinks } from "./partner-links";
@@ -21,6 +22,7 @@ export default function Home() {
         sizes="(max-width: 640px) 84vw, (max-width: 1440px) 56vw, 720px"
         priority
       />
+      <Countdown />
       <VideoPlayer />
     </PointerProximityField>
   );
