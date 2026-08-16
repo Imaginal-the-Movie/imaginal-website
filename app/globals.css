@@ -1,0 +1,147 @@
+:root {
+  color-scheme: dark;
+  --bg: #050608;
+  --text-main: #e2e4e9;
+  --text-muted: #6b7078;
+  --accent-blue: #8ba4f9;
+  --accent-gold: #e8d9a0;
+  --line: rgba(255, 255, 255, 0.08);
+  --mono: "SFMono-Regular", "Roboto Mono", "JetBrains Mono", Consolas, monospace;
+  --sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --pad: 2.5rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text-main); font-family: var(--sans); overflow: hidden; overscroll-behavior: none; -webkit-font-smoothing: antialiased; }
+main { position: relative; width: 100%; height: 100svh; overflow: hidden; }
+
+.imageBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.26;
+  background: #000;
+}
+
+.imageBackdrop img {
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.52) contrast(1.08) saturate(0.62);
+  transform: scale(1.015);
+}
+
+.webglBackdrop { position: absolute; inset: 0; width: 100vw; height: 100vh; z-index: 1; box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.8); }
+.webglBackdrop canvas { display: block; }
+.noiseOverlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.filmLogo {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  z-index: 3;
+  width: min(56vw, 720px);
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+  filter: drop-shadow(0 0 14px rgba(220, 226, 235, 0.14));
+  transform: translate(-50%, -50%);
+}
+
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  display: grid;
+  width: clamp(86px, 8vw, 116px);
+  aspect-ratio: 1;
+  place-items: center;
+  color: #f7f8fa;
+  background: rgba(5, 6, 8, 0.18);
+  border: 1px solid rgba(226, 229, 235, 0.82);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(100, 106, 116, 0.3),
+    0 0 30px rgba(210, 218, 232, 0.12),
+    inset 0 0 20px rgba(230, 234, 242, 0.06);
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease, background 250ms ease;
+}
+
+.playButton::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(174, 181, 194, 0.24);
+  border-radius: inherit;
+}
+
+.playButton svg {
+  width: 28%;
+  margin-left: 6%;
+  overflow: visible;
+  fill: currentColor;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.28));
+}
+
+.playButton:hover,
+.playButton:focus-visible {
+  background: rgba(16, 18, 22, 0.34);
+  border-color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(155, 163, 176, 0.42),
+    0 0 42px rgba(218, 225, 239, 0.22),
+    inset 0 0 24px rgba(235, 238, 245, 0.1);
+  outline: none;
+  transform: translate(-50%, -50%) scale(1.045);
+}
+
+.videoOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: #000;
+  transition: opacity 260ms ease, visibility 0s linear 260ms;
+}
+
+.videoOverlay.isOpen {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 260ms ease;
+}
+
+.youtubePlayer,
+.youtubePlayer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.videoError {
+  position: absolute;
+  color: #e2e4e9;
+  background: transparent;
+  border: 1px solid rgba(226, 228, 233, 0.5);
+  border-radius: 999px;
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playButton,
+  .videoOverlay { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .filmLogo { width: 84vw; }
+}
