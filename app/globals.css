@@ -235,116 +235,6 @@ main:has(.partnerPanel.isOpen),
   transform: translate(-50%, -50%);
 }
 
-.countdown {
-  --led-size: clamp(3px, 0.45vw, 5px);
-  --led-gap: clamp(1.4px, 0.18vw, 2.2px);
-  position: absolute;
-  top: 84.5%;
-  left: 50%;
-  z-index: 3;
-  width: max-content;
-  max-width: 94vw;
-  opacity: 0;
-  pointer-events: none;
-  filter: drop-shadow(0 0 12px rgba(254, 130, 57, 0.1));
-  transform: translateX(-50%);
-  transition: opacity 300ms ease;
-}
-
-.countdown.isReady { opacity: 1; }
-
-.countdownDisplay {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(5px, 0.72vw, 10px);
-}
-
-.ledTone-orange {
-  --led-color: #fe8239;
-  --led-rgb: 254 130 57;
-}
-
-.ledTone-gold {
-  --led-color: #dcaa28;
-  --led-rgb: 220 170 40;
-}
-
-.ledGroup {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(5px, 0.65vw, 8px);
-}
-
-.ledNumber {
-  display: inline-flex;
-  gap: clamp(3px, 0.42vw, 6px);
-}
-
-.ledDigit {
-  display: grid;
-  grid-template-columns: repeat(5, var(--led-size));
-  grid-template-rows: repeat(7, var(--led-size));
-  gap: var(--led-gap);
-}
-
-.ledDot {
-  position: relative;
-  display: block;
-  width: var(--led-size);
-  height: var(--led-size);
-  overflow: visible;
-  background: rgb(var(--led-rgb) / 0.075);
-  border-radius: 50%;
-  box-shadow: inset 0 0 1px rgb(var(--led-rgb) / 0.08);
-}
-
-.ledDot.isOn {
-  background: var(--led-color);
-  box-shadow:
-    0 0 3px var(--led-color),
-    0 0 8px rgb(var(--led-rgb) / 0.78),
-    0 0 15px rgb(var(--led-rgb) / 0.36);
-}
-
-.ledDot.isOn::before,
-.ledDot.isOn::after {
-  position: absolute;
-  border-radius: inherit;
-  content: "";
-}
-
-.ledDot.isOn::before {
-  inset: 20%;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.88);
-}
-
-.ledDot.isOn::after {
-  inset: 42%;
-  background: var(--led-color);
-  box-shadow: 0 0 2px rgb(var(--led-rgb) / 0.72);
-}
-
-.ledColon {
-  display: inline-flex;
-  height: calc(var(--led-size) * 7 + var(--led-gap) * 6);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(var(--led-size) * 2 + var(--led-gap) * 2);
-}
-
-.ledLabel {
-  color: rgba(236, 238, 243, 0.52);
-  font-family: var(--mono);
-  font-size: clamp(0.42rem, 0.56vw, 0.58rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .playButton {
   position: absolute;
   top: 50%;
@@ -438,8 +328,7 @@ main:has(.partnerPanel.isOpen),
   .playButton,
   .videoOverlay,
   .partnerPanel,
-  .glassPill,
-  .countdown { transition: none; }
+  .glassPill { transition: none; }
 }
 
 @media (max-width: 640px) {
@@ -470,16 +359,4 @@ main:has(.partnerPanel.isOpen),
 @media (hover: none), (pointer: coarse) {
   .imageBackdrop { opacity: 0.5; }
   .partnerLogoTrigger { opacity: 0.94; }
-}
-
-@media (max-height: 520px) {
-  .countdown {
-    --led-size: clamp(2.4px, 0.72vh, 3.2px);
-    --led-gap: clamp(1px, 0.3vh, 1.4px);
-    top: auto;
-    bottom: 10px;
-  }
-
-  .ledGroup { gap: 4px; }
-  .ledLabel { font-size: 0.4rem; }
 }
