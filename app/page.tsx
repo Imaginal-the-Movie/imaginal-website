@@ -12,7 +12,7 @@ export default function Home() {
       <div className="noiseOverlay" aria-hidden="true" />
       <Image
         className="partnerLogo partnerLogoVyby"
-        src="/vyby-logo.png"
+        src="/vyby-logo-v2.png"
         alt="Vyby"
         width={530}
         height={371}
