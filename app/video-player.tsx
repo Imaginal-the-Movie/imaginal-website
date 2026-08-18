@@ -109,7 +109,7 @@ export function VideoPlayer() {
         if (isCancelled || !playerMountRef.current) return;
 
         playerRef.current = new youtube.Player(playerMountRef.current, {
-          videoId: "pdDNh8P1VNs",
+          videoId: "YIRQDS6SoVw",
           playerVars: {
             autoplay: 0,
             controls: 1,

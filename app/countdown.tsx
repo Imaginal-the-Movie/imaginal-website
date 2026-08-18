@@ -206,7 +206,7 @@ export function Countdown() {
         </p>
         <a
           className="glassPill"
-          href="https://www.youtube.com/watch?v=pdDNh8P1VNs"
+          href="https://www.youtube.com/watch?v=YIRQDS6SoVw"
           target="_blank"
           rel="noopener noreferrer"
           tabIndex={isSupportOpen ? 0 : -1}
