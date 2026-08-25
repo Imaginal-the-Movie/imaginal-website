@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TARGET_TIME = new Date("2026-08-24T23:59:00-07:00").getTime();
+const TARGET_TIME = new Date("2026-08-26T23:59:00-07:00").getTime();
 
 const DIGITS: Record<string, string[]> = {
   "0": ["11111", "10001", "10001", "10001", "10001", "10001", "11111"],
