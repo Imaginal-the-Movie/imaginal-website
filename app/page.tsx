@@ -8,12 +8,6 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
-  VIDEO_DESCRIPTION,
-  VIDEO_DURATION,
-  VIDEO_THUMBNAIL_URL,
-  VIDEO_TITLE,
-  VIDEO_UPLOAD_DATE,
-  YOUTUBE_EMBED_URL,
   YOUTUBE_URL,
 } from "./site-metadata";
 import { VideoPlayer } from "./video-player";
@@ -48,16 +42,6 @@ const structuredData = {
           url: "https://www.positivetechinstitute.org",
         },
       ],
-      trailer: {
-        "@type": "VideoObject",
-        name: VIDEO_TITLE,
-        description: VIDEO_DESCRIPTION,
-        thumbnailUrl: [VIDEO_THUMBNAIL_URL],
-        uploadDate: VIDEO_UPLOAD_DATE,
-        duration: VIDEO_DURATION,
-        embedUrl: YOUTUBE_EMBED_URL,
-        url: YOUTUBE_URL,
-      },
     },
   ],
 };
