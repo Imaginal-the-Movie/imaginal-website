@@ -60,6 +60,7 @@ const videoJsonLd = {
     "@type": "Movie",
     "@id": `${SITE_URL}/#movie`,
     name: SITE_NAME,
+    image: VIDEO_THUMBNAIL_URL,
   },
 };
 
