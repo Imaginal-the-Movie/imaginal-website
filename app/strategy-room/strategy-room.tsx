@@ -9,7 +9,7 @@ import { CharacterFolio } from "./character-folio";
 import { CollaborationDialog } from "./organization-details";
 import { Transmission } from "./transmission";
 import { TransmissionDebris } from "./transmission-debris";
-import { playTransmissionSignal } from "./transmission-signal";
+import { playTransmissionSignal, prepareTransmissionSignal, stopTransmissionSignal } from "./transmission-signal";
 import { Trailer } from "./trailer";
 import { LayoutDiagnostics } from "./layout-diagnostics";
 import { ProjectBrief, type ProjectEntry } from "./project-brief";
@@ -74,6 +74,12 @@ export function StrategyRoom() {
   }, []);
 
   useEffect(() => {
+    prepareTransmissionSignal();
+    return stopTransmissionSignal;
+  }, []);
+
+  useEffect(() => {
+    if (view !== "transmission") stopTransmissionSignal();
     foreground.current?.scrollTo({ top: 0 });
     if (view !== "room") panelTitle.current?.focus({ preventScroll: true });
   }, [view]);

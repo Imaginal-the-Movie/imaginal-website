@@ -22,54 +22,41 @@ function noise(context: AudioContext, duration: number) {
   return source;
 }
 
-// A low electrical hum builds into a short connection zap, on opening only.
+const signalUrl = "/strategy-room/audio/incoming-transmission-elevenlabs-v1.mp3";
+let openingSignal: HTMLAudioElement | null = null;
+
+export function prepareTransmissionSignal() {
+  try {
+    if (openingSignal) return;
+    openingSignal = new Audio(signalUrl);
+    openingSignal.preload = "auto";
+    openingSignal.volume = 0.6;
+    openingSignal.load();
+  } catch {
+    // The room remains usable if media is unavailable.
+  }
+}
+
+export function stopTransmissionSignal() {
+  if (!openingSignal) return;
+  openingSignal.pause();
+  if (openingSignal.readyState > 0) openingSignal.currentTime = 0;
+}
+
 export function playTransmissionSignal() {
-  playCue((context, done) => {
-    const start = context.currentTime;
-    [65, 130].forEach((frequency, index) => {
-      const hum = context.createOscillator();
-      const level = context.createGain();
-      hum.type = index === 0 ? "sine" : "triangle";
-      hum.frequency.value = frequency;
-      level.gain.setValueAtTime(0, start);
-      level.gain.linearRampToValueAtTime(index === 0 ? 0.065 : 0.018, start + 0.08);
-      level.gain.linearRampToValueAtTime(index === 0 ? 0.08 : 0.025, start + 0.4);
-      level.gain.exponentialRampToValueAtTime(0.0001, start + 0.8);
-      hum.connect(level).connect(context.destination);
-      hum.start(start);
-      hum.stop(start + 0.84);
-      if (index === 0) hum.onended = done;
-    });
-    const at = start + 0.44;
-    const zap = context.createOscillator();
-    const zapLevel = context.createGain();
-    zap.type = "triangle";
-    zap.frequency.setValueAtTime(1200, at);
-    zap.frequency.exponentialRampToValueAtTime(2400, at + 0.03);
-    zap.frequency.exponentialRampToValueAtTime(700, at + 0.16);
-    zapLevel.gain.setValueAtTime(0, at);
-    zapLevel.gain.linearRampToValueAtTime(0.03, at + 0.008);
-    zapLevel.gain.exponentialRampToValueAtTime(0.0001, at + 0.16);
-    zap.connect(zapLevel).connect(context.destination);
-    zap.start(at);
-    zap.stop(at + 0.17);
-    const spark = noise(context, 0.16);
-    const resonance = context.createBiquadFilter();
-    const sparkLevel = context.createGain();
-    resonance.type = "bandpass";
-    resonance.Q.value = 1.4;
-    resonance.frequency.setValueAtTime(3200, at);
-    resonance.frequency.exponentialRampToValueAtTime(900, at + 0.15);
-    sparkLevel.gain.setValueAtTime(0, at);
-    sparkLevel.gain.linearRampToValueAtTime(0.09, at + 0.008);
-    sparkLevel.gain.exponentialRampToValueAtTime(0.0001, at + 0.15);
-    spark.connect(resonance).connect(sparkLevel).connect(context.destination);
-    spark.start(at);
-  });
+  try {
+    prepareTransmissionSignal();
+    if (!openingSignal) return;
+    stopTransmissionSignal();
+    void openingSignal.play().catch(() => {});
+  } catch {
+    // A blocked sound must never prevent the transmission from opening.
+  }
 }
 
 // Low-frequency tremor with irregular, damped crumble rather than a glass chime.
 export function playTransmissionImpact() {
+  stopTransmissionSignal();
   playCue((context, done) => {
     const start = context.currentTime;
     const tremor = noise(context, 1.16);
