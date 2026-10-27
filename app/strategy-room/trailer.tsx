@@ -1,5 +1,6 @@
 "use client";
 
+import { RoomIcon } from "./room-icon";
 import { useEffect, useRef, useState } from "react";
 import styles from "./refinements.module.css";
 import { loadYouTubeApi, type YouTubePlayer } from "../video-player";
@@ -59,6 +60,6 @@ export function Trailer({ onClose, initialTime, onRememberTime }: {
   return <section data-room-object data-trailer-screen className={styles.fullscreenTrailer} role="dialog" aria-modal="true" aria-label="Imaginal trailer">
     <div ref={mount} className={styles.youtubeMount} />
     <button type="button" className={styles.trailerClose} onClick={onClose}>Back to room</button>
-    {error && <div className={styles.trailerError} role="alert"><p>The YouTube player could not load.</p><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noreferrer">Watch on YouTube ↗</a><button type="button" onClick={onClose}>Close trailer</button></div>}
+    {error && <div className={styles.trailerError} role="alert"><p>The YouTube player could not load.</p><a href={`https://www.youtube.com/watch?v=${VIDEO_ID}`} target="_blank" rel="noreferrer">Watch on YouTube <RoomIcon name="arrow-up-right" /></a><button type="button" onClick={onClose}>Close trailer</button></div>}
   </section>;
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { RoomIcon } from "./room-icon";
 import type { Ref } from "react";
 import { ChapterSequence, type Chapter } from "./chapter-sequence";
 import { OrganizationDetails } from "./organization-details";
@@ -53,7 +54,7 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
     { label: "Contact", content: <article className={refined.planCard} data-project-beat="join" data-project-contact>
       <span className={refined.actCardNumber}>05 / 05</span>
       <h2>Help bring Imaginal to life.</h2>
-      <div className={refined.planContact}><a href="mailto:lucy@vyby.com?subject=Imaginal%20%E2%80%94%20let%E2%80%99s%20talk">lucy@vyby.com <span aria-hidden="true">↗</span></a></div>
+      <div className={refined.planContact}><a href="mailto:lucy@vyby.com?subject=Imaginal%20%E2%80%94%20let%E2%80%99s%20talk">lucy@vyby.com <RoomIcon name="arrow-up-right" /></a></div>
       <p className={refined.planLead}>We’re looking for partners who connect with the film and want to help shape its next stage.</p>
     </article> },
   ];

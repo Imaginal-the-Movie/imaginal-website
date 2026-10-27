@@ -1,5 +1,6 @@
 "use client";
 
+import { RoomIcon } from "./room-icon";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react";
 import { ASSETS, transmission } from "./content";
@@ -18,7 +19,7 @@ type View = "room" | "transmission" | "trailer" | "story" | "project" | "brochur
 const BROCHURE_URL = "https://www.canva.com/design/DAHYwlO9W-4/bSywiULjErv4OyEgyGJ5kg/view";
 
 function Arrow() {
-  return <span aria-hidden="true">↗</span>;
+  return <RoomIcon name="arrow-up-right" />;
 }
 
 export function StrategyRoom() {
@@ -147,18 +148,18 @@ export function StrategyRoom() {
       <div className={`${styles.scene} ${refined.objectStage}`} data-room-objects data-map-open={mapOpen} inert={!objectsActive} aria-hidden={!objectsActive ? true : undefined}>
         <button ref={theaterPlay} className={`${styles.hotspot} ${styles.screenHotspot} ${refined.theaterScreen}`} aria-label="Watch the trailer" data-invited={trailerInvited} onClick={() => openView("trailer")}>
           <span className={styles.screenTitle} data-screen-title>IMAGINAL</span>
-          <span className={styles.playCircle} data-screen-play aria-hidden="true">▶</span>
+          <span className={styles.playCircle} data-screen-play aria-hidden="true"><RoomIcon name="play" /></span>
           <span className={refined.objectCaption} data-screen-caption>{trailerInvited ? "PLAY TRAILER" : "WATCH THE TRAILER"}</span>
         </button>
-        {trailerInvited && <button type="button" className={refined.handoffBack} data-trailer-return data-room-object onClick={closeView}><span aria-hidden="true">←</span> Back to room</button>}
+        {trailerInvited && <button type="button" className={refined.handoffBack} data-trailer-return data-room-object onClick={closeView}><RoomIcon name="arrow-left" /> Back to room</button>}
         <CharacterFolio open={mapOpen} inactive={trailerInvited} onOpen={() => { setTrailerInvited(false); setMapOpen(true); setPinnedCharacter("skye"); setHoveredCharacter(null); }} />
         <button data-story-object className={refined.storySphere} disabled={trailerInvited} aria-label="Explore the story" onClick={() => openView("story")}>
           <Image src={`${ASSETS}/objects/story-sphere-v1.png`} alt="" fill sizes="13vw" unoptimized className={refined.objectImage} />
-          <span className={`${refined.objectCaption} ${refined.sphereCaption}`}>THE STORY<span className={refined.objectCaptionArrow} aria-hidden="true">↗</span></span>
+          <span className={`${refined.objectCaption} ${refined.sphereCaption}`}>THE STORY<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span>
         </button>
         <button data-project-object className={refined.projectSlab} disabled={trailerInvited} aria-label="Explore the project" onClick={() => openView("project")}>
           <Image src={`${ASSETS}/objects/project-slab-v1.png`} alt="" fill sizes="47vw" unoptimized className={refined.objectImage} />
-          <span className={`${refined.objectCaption} ${refined.projectCaption}`}>THE PROJECT<span className={refined.objectCaptionArrow} aria-hidden="true">↗</span></span>
+          <span className={`${refined.objectCaption} ${refined.projectCaption}`}>THE PROJECT<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span>
         </button>
         <button className={refined.brochureObject} data-brochure-object data-brochure-hovered={brochureHovered && objectsActive && !trailerInvited} disabled={trailerInvited} aria-label="Preview the brochure" onPointerEnter={() => setBrochureHovered(true)} onPointerLeave={() => setBrochureHovered(false)} onFocus={() => setBrochureHovered(true)} onBlur={() => setBrochureHovered(false)} onClick={() => openView("brochure")}>
           <span className={refined.brochurePaper}>
@@ -167,12 +168,12 @@ export function StrategyRoom() {
           </span>
         </button>
         <button className={refined.brochureLabel} data-brochure-label disabled={trailerInvited} aria-label="Open detailed brochure" onPointerEnter={() => setBrochureHovered(true)} onPointerLeave={() => setBrochureHovered(false)} onFocus={() => setBrochureHovered(true)} onBlur={() => setBrochureHovered(false)} onClick={() => openView("brochure")}>
-          <span className={`${refined.objectCaption} ${refined.brochureLabelTitle}`}>DIVE DEEPER<span className={refined.objectCaptionArrow} aria-hidden="true">↗</span></span>
+          <span className={`${refined.objectCaption} ${refined.brochureLabelTitle}`}>DIVE DEEPER<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span>
           <span className={refined.brochureLabelNote}>(Optional)</span>
         </button>
         <button data-transmission-object className={refined.butterflyObject} disabled={trailerInvited} onClick={openTransmission} aria-label="Open Skye’s transmission">
           <Image src={`${ASSETS}/objects/transmission-butterfly-v2.png`} alt="" fill sizes="20vw" unoptimized className={refined.objectImage} />
-          <span className={refined.butterflyCaption}><span className={styles.signal} aria-hidden="true">{Array.from({ length: 17 }, (_, i) => <i key={i} style={{ height: `${3 + (8 - Math.abs(8 - i)) * 1.8}px` }} />)}</span><span className={refined.objectCaption}>INCOMING TRANSMISSION / SKYE<span className={refined.objectCaptionArrow} aria-hidden="true">↗</span></span></span>
+          <span className={refined.butterflyCaption}><span className={styles.signal} aria-hidden="true">{Array.from({ length: 17 }, (_, i) => <i key={i} style={{ height: `${3 + (8 - Math.abs(8 - i)) * 1.8}px` }} />)}</span><span className={refined.objectCaption}>INCOMING TRANSMISSION / SKYE<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span></span>
         </button>
       </div>
 

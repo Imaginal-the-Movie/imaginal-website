@@ -72,14 +72,16 @@
 .objectStage > button:hover .objectImage, .objectStage > button:focus-visible .objectImage { transform: translateY(-5px); filter: drop-shadow(0 5px 9px rgba(109,134,147,.18)); }
 .folioRig { position: absolute; left: 0; top: 61%; width: 37%; aspect-ratio: 2176 / 723; z-index: 0; pointer-events: none; }
 .folioViewport { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transition: filter 400ms; }
+.folioGeometry { position: absolute; left: 0; top: 0; width: 2176px; height: 723px; transform: scale(var(--folio-scale, 0)); transform-origin: 0 0; transform-style: preserve-3d; }
 .folioRig:has(.folioTrigger:hover) .folioViewport, .folioRig:has(.folioTrigger:focus-visible) .folioViewport { filter: drop-shadow(0 0 7px rgba(255,255,255,.65)); }
 /* Calibrated orthogonal width/depth axes: the depth column is their camera-space
    normal, not a hand-set vertical stretch. Fixed geometry; only the hinge rotates. */
 .folioTablePlane { position: absolute; width: 1000px; height: 1000px; transform-origin: 0 0; transform: matrix3d(1.70327364264,-0.155287265548,0,4.64091806515e-05,-0.434511352418,0.319057255676,0,-0.000207305034551,-0.294114245233,-1.51630830245,1,-7.26361931474e-05,490,239,0,1); transform-style: preserve-3d; }
 .glassLeaf { position: absolute; inset: 0; }
-.originalFolioSurface { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.folioBase { transform: translateZ(-1px); pointer-events: auto; }
-.folioCover { position: absolute; inset: 0; transform-origin: 0 50%; transform-style: preserve-3d; transform: rotateY(0deg); transition: transform 650ms cubic-bezier(.22,.65,.3,1); pointer-events: auto; }
+.originalFolioSurface { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.folioEngraving { mask-image: linear-gradient(to right, transparent 42%, black 58%); -webkit-mask-image: linear-gradient(to right, transparent 42%, black 58%); }
+.folioBase { transform: translateZ(-1px); pointer-events: none; }
+.folioCover { position: absolute; inset: 0; transform-origin: 0 50%; transform-style: preserve-3d; transform: rotateY(0deg); transition: transform 650ms cubic-bezier(.22,.65,.3,1); pointer-events: none; }
 .folioCoverFront, .folioCoverBack { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .folioCoverFront { transform: translateZ(1px); }
 .folioCoverFront::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 38%, rgba(255,255,255,.55) 49%, transparent 60%); background-size: 250% 100%; opacity: 0; pointer-events: none; }

@@ -1,5 +1,6 @@
 "use client";
 
+import { RoomIcon } from "./room-icon";
 import { useCallback, useEffect, useId, useRef } from "react";
 import { characters } from "./content";
 import styles from "./refinements.module.css";
@@ -107,15 +108,15 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
       </button>
       {selected === key && <aside id={`character-detail-${key}`} data-character-detail data-room-object className={styles.characterDetail} aria-label={`${characters[key].name} character introduction`}>
         <h2>{characters[key].name}</h2><p>{characters[key].caption}</p>
-        <span className={styles.characterNextCue} aria-hidden="true">Next character <span>→</span></span>
+        <span className={styles.characterNextCue} aria-hidden="true">Next character <RoomIcon name="arrow-right" /></span>
         <button ref={nextButton} type="button" className={styles.characterNext} aria-label="Next character" onClick={() => cycleCharacter(1, true)} />
       </aside>}
       </div>)}
     </div>
     <div data-character-controls>
-      <button type="button" aria-label="Previous character" onClick={() => cycleCharacter(-1)}>←</button>
+      <button type="button" aria-label="Previous character" onClick={() => cycleCharacter(-1)}><RoomIcon name="arrow-left" /></button>
       <span aria-live="polite">{selected ? characters[selected].name : "Characters"} · {selectedIndex + 1} / {characterOrder.length}</span>
-      <button type="button" aria-label="Next character" onClick={() => cycleCharacter(1)}>→</button>
+      <button type="button" aria-label="Next character" onClick={() => cycleCharacter(1)}><RoomIcon name="arrow-right" /></button>
     </div>
   </div>;
 }

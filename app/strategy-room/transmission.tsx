@@ -1,5 +1,6 @@
 "use client";
 
+import { RoomIcon } from "./room-icon";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { transmission } from "./content";
 import styles from "./refinements.module.css";
@@ -91,7 +92,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
       <div className={styles.transmissionStatus}>
       <button className={styles.transmissionPlayback} onClick={() => setPaused(!paused)} aria-label={paused ? "Resume transmission autoplay" : "Pause transmission autoplay"} aria-pressed={paused}>
         <span className={styles.transmissionBars} aria-hidden="true">{transmission.map((line, index) => <i key={line.focus} data-state={index < beat ? "received" : index === beat ? "receiving" : "pending"} style={{ height: `${10 + (3 - Math.abs(3 - index)) * 4}px` }}><span key={beat} style={{ "--beat-duration": `${duration}ms` } as CSSProperties} /></i>)}</span>
-        <span className={styles.playbackGlyph} aria-hidden="true">{paused ? "▶" : "Ⅱ"}</span>
+        <span className={styles.playbackGlyph} aria-hidden="true"><RoomIcon name={paused ? "play" : "pause"} /></span>
       </button>
       </div>
       <div key={beat} className={styles.transmissionBeat}>
