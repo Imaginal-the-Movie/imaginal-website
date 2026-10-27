@@ -41,7 +41,7 @@
       {
         "name": "Lucy Liu",
         "linkedin": "https://www.linkedin.com/in/glucyliu/",
-        "role": "Writer / Producer",
+        "role": "Production Manager / Associate Producer",
         "bio": "Lucy builds systems and cultures around conscious participation, helping people feel fully expressed, connected and alive.",
         "credentials": [
           "Co-founder, Vyby",
@@ -52,7 +52,7 @@
       {
         "name": "Mika Onishi",
         "linkedin": "https://www.linkedin.com/in/mikaonishi/",
-        "role": "Writer / Producer",
+        "role": "Associate Producer",
         "bio": "Mika works to put technology in service of human sovereignty and collective intelligence, enabling greater human flourishing.",
         "credentials": [
           "Co-founder and Chair of the Positive Technology Institute",
@@ -70,15 +70,15 @@
     "sections": [
       { "heading": "Format", "text": "Feature film · approx. 90 minutes" },
       { "heading": "What we have", "text": "Initial trailer, 15-page treatment, director" },
-      { "heading": "What we need", "text": "Funding and mission-aligned backers and partners to bring the feature to life." },
+      { "heading": "What we need", "text": "Mission-aligned backers and partners to bring the feature to life." },
       { "heading": "Production approach", "text": "AI-generated video with human voice performance, editing, sound design and VFX." }
     ],
     "budget": {
       "heading": "Preliminary budget",
       "items": [
         { "label": "Development, production & post", "amount": "$745,000", "breakdown": [
-          { "label": "Director / writer / initial creative passes", "amount": "$125,000" },
-          { "label": "Producer / budgeting / scheduling / fundraising", "amount": "$125,000" },
+          { "label": "Director / writer / editor", "amount": "$125,000" },
+          { "label": "Production manager", "amount": "$125,000" },
           { "label": "AI generation · $1,500/min × 90 min", "amount": "$135,000" },
           { "label": "Writing partner", "amount": "$60,000" },
           { "label": "Editing partner", "amount": "$60,000" },
