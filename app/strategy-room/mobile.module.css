@@ -3,7 +3,7 @@
 .compact [data-character-controls], .compact [data-character-close] { display: none; }
 
 @media (max-width: 700px), (max-width: 1024px) and (pointer: coarse) {
-  .compact[data-view] { height: 100dvh; min-height: 0; overflow: hidden; }
+  .compact[data-view] { --brochure-caption-top: calc(54% + 31vw + 4px); height: 100dvh; min-height: 0; overflow: hidden; }
   .compact[data-view="room"][data-map-open="false"],
   .compact [data-room-objects], .compact [data-room-header], .compact [data-room-scene], .compact [data-room-credits] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   .compact [data-room-objects] img { -webkit-user-drag: none; }
@@ -19,11 +19,12 @@
   .compact [data-room-nav] button { min-height: 48px; padding: 10px 0; margin: 0; text-align: left; font-size: 16px; }
   .compact [data-room-nav] button::after { width: 32px; }
   .compact [data-room-menu-backdrop] { position: fixed; display: block; inset: 0; z-index: 40; border: 0; background: rgba(54,73,84,.2); backdrop-filter: blur(3px); }
-  .compact[data-view] [data-room-credits] { left: 18px; bottom: max(12px, env(safe-area-inset-bottom)); font-size: 7px; letter-spacing: .08em; padding: 0; }
+  .compact[data-view] [data-room-credits] { left: 18px; right: 18px; justify-content: center; text-align: center; bottom: max(12px, env(safe-area-inset-bottom)); font-size: 7px; letter-spacing: .08em; padding: 0; }
   /* Preserve its measured layout inset while removing credits from open views. */
   .compact:not([data-view="room"]) [data-room-credits],
   .compact[data-map-open="true"] [data-room-credits],
-  .compact[data-nav-open="true"] [data-room-credits] { visibility: hidden; pointer-events: none; }
+  .compact[data-nav-open="true"] [data-room-credits],
+  .compact:has(dialog[open]) [data-room-credits] { visibility: hidden; pointer-events: none; }
 
   /* The room stays fixed; the independently placed props get a portrait composition. */
   .compact[data-view] [data-room-scene] { width: max(100vw, 160dvh); height: 100dvh; top: 50%; left: 50%; transform: translate(-50%, -50%); }
@@ -42,10 +43,12 @@
   .compact [data-story-object] > span { font-size: 10px; top: 92%; letter-spacing: .035em; }
   .compact [data-folio-rig] { left: -10%; top: 78%; width: 76%; }
   .compact [data-folio-rig] button > span { font-size: 10px; letter-spacing: .035em; }
-  .compact [data-project-object] { left: 40%; top: 65%; width: 74%; height: 33%; }
+  /* The PNG's glass face starts 31% down its box. Clear the 36px brochure
+     caption plus 12px breathing room, rather than overlapping on short phones. */
+  .compact [data-project-object] { left: 40%; top: max(72%, calc(var(--brochure-caption-top) + 48px - 10.23%)); width: 74%; height: 33%; }
   .compact [data-project-object] > span { font-size: 10px; letter-spacing: .035em; }
   .compact [data-brochure-object] { left: 62%; top: 54%; width: 27%; transform: perspective(800px) rotateX(60deg) rotateZ(110deg); }
-  .compact [data-brochure-label] { left: 75.5%; top: calc(54% + 31vw + 4px); transform: translateX(-50%); padding: 0 6px; min-height: 36px; }
+  .compact [data-brochure-label] { left: 75.5%; top: var(--brochure-caption-top); transform: translateX(-50%); padding: 0 6px; min-height: 36px; }
   .compact [data-brochure-label] > span { font-size: 10px; letter-spacing: .035em; }
   .compact [data-brochure-label] > span:last-child { font-size: 9px; }
   .compact[data-view="room"][data-trailer-invited="true"][data-map-open="false"] [data-room-scene] { transform: translate(-50%, -42%) scale(1.12); transform-origin: 50% 30%; }
@@ -56,7 +59,7 @@
 
   /* One scroll area per reading card; controls live in their own bottom gutter. */
   .compact[data-view] [data-room-content] { min-height: 0; }
-  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) 10px calc(var(--room-footer-inset, 24px) + 10px); }
+  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) 10px max(10px, env(safe-area-inset-bottom)); }
   .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; }
   .compact [data-reading-header] { padding: 18px 20px 0; min-width: 0; }
   .compact [data-reading-header] h1 { margin-bottom: 4px; }
@@ -118,13 +121,13 @@
   .compact [data-brochure-preview] > div { height: auto; flex: none; display: flex; flex-direction: column; align-items: stretch; gap: 8px; padding: 16px; }
   .compact [data-brochure-preview] > div > div:last-child { justify-content: space-between; min-height: 44px; }
   .compact [data-brochure-preview] iframe { width: 100%; height: 0; min-height: 0; flex: 1; aspect-ratio: auto; }
-  .compact [data-trailer-screen] > button { top: max(8px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); min-height: 44px; }
+  .compact [data-trailer-screen] > button { top: max(8px, env(safe-area-inset-top)); left: max(12px, env(safe-area-inset-left)); right: auto; min-height: 44px; }
 }
 
 @media (max-width: 700px) and (max-height: 720px) {
-  .compact [data-project-object] { top: 71%; height: 30%; }
+  .compact[data-view] { --brochure-caption-top: calc(53% + 31vw + 4px); }
+  .compact [data-project-object] { top: max(71%, calc(var(--brochure-caption-top) + 48px - 9.3%)); height: 30%; }
   .compact [data-brochure-object] { top: 53%; }
-  .compact [data-brochure-label] { top: calc(53% + 31vw + 4px); }
   .compact [data-character-map] [data-selected="true"] > button { top: 8px; width: 120px; height: 180px; left: calc(50% - 60px); }
   .compact [data-character-detail] { top: 205px; }
 }
@@ -144,7 +147,7 @@
   .compact [data-folio-rig] { left: -2%; top: 77%; width: 35%; }
   .compact [data-project-object] { left: 62%; top: 48%; width: 42%; height: 56%; }
   .compact [data-brochure-object] { left: 73%; top: 42%; width: 8%; }
-  .compact [data-brochure-label] { left: 78%; top: 66%; }
+  .compact [data-brochure-label] { left: 78%; top: 32%; }
   .compact [data-character-map] [data-selected="true"] > button { left: 12%; top: 12px; width: 112px; height: 168px; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot]:not([data-selected="true"]) { display: none; }
   .compact [data-character-detail] { left: 38%; top: 0; bottom: 58px; }
@@ -157,6 +160,7 @@
 }
 
 @media (min-width: 701px) and (max-width: 1024px) and (pointer: coarse) and (orientation: portrait) {
+  .compact[data-view] { --brochure-caption-top: calc(48% + 26vw + 4px); }
   .compact [data-brochure-object] { left: 65%; top: 48%; width: 22%; }
-  .compact [data-brochure-label] { left: 76%; top: calc(48% + 26vw + 4px); }
+  .compact [data-brochure-label] { left: 76%; }
 }

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState, type MouseEvent } from "react
 import { ASSETS, transmission } from "./content";
 import { TabletopCharacters, type Character } from "./character-projections";
 import { CharacterFolio } from "./character-folio";
+import { CollaborationDialog } from "./organization-details";
 import { Transmission } from "./transmission";
 import { Trailer } from "./trailer";
 import { LayoutDiagnostics } from "./layout-diagnostics";
@@ -38,6 +39,7 @@ export function StrategyRoom() {
   const room = useRef<HTMLElement>(null);
   const roomHeader = useRef<HTMLElement>(null);
   const roomFooter = useRef<HTMLElement>(null);
+  const collaborationDialog = useRef<HTMLDialogElement>(null);
   const foreground = useRef<HTMLDivElement>(null);
   const panelTitle = useRef<HTMLHeadingElement>(null);
   const lastTrigger = useRef<HTMLElement | null>(null);
@@ -226,7 +228,8 @@ export function StrategyRoom() {
         {view === "project" && <ProjectBrief titleRef={panelTitle} onClose={closeView} entry={projectEntry} />}
       </div>
 
-      <footer ref={roomFooter} data-room-credits className={`${styles.footer} ${refined.roomCredits}`}><span>VYBY × POSITIVE TECHNOLOGY INSTITUTE</span></footer>
+      <CollaborationDialog dialog={collaborationDialog} />
+      <footer ref={roomFooter} data-room-credits className={`${styles.footer} ${refined.roomCredits}`}><button type="button" aria-label="About the Vyby and PTI collaboration" aria-haspopup="dialog" onClick={() => collaborationDialog.current?.showModal()}>VYBY × POSITIVE TECHNOLOGY INSTITUTE</button></footer>
       {process.env.NODE_ENV === "development" && <LayoutDiagnostics />}
     </main>
   );
