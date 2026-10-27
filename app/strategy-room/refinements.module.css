@@ -374,7 +374,7 @@
 .actPeekPrevious > span { right: 12px; }
 .actPeekNext > span { left: 12px; }
 .actPeek:hover, .actPeek:focus-visible { background: #fff !important; color: #304b5c !important; }
-.storyCircleArrow { position: absolute; top: 50%; width: 64px; height: 64px; translate: 0 -50%; display: grid; place-items: center; z-index: 1; border: 1px solid rgba(67,85,97,.45) !important; border-radius: 50%; background: #fff !important; color: #344d5c !important; box-shadow: 0 4px 20px rgba(78,100,114,.12); transition: box-shadow 200ms, scale 200ms; }
+.storyCircleArrow { position: absolute; top: calc(50% - 32px); width: 64px; height: 64px; display: grid; place-items: center; z-index: 1; border: 1px solid rgba(67,85,97,.45) !important; border-radius: 50%; background: #fff !important; color: #344d5c !important; box-shadow: 0 4px 20px rgba(78,100,114,.12); transition: box-shadow 200ms, scale 200ms; }
 .storyCirclePrevious { left: -32px; }
 .storyCircleNext { right: -32px; }
 .storyCircleArrow svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }

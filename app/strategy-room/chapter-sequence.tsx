@@ -61,7 +61,10 @@ export function ChapterSequence({ variant, title, titleRef, onClose, chapters, i
     </>}
     header={<>
       <h1 ref={titleRef} tabIndex={-1} id={`${variant}-title`}>{title}</h1>
-      <nav ref={navigation} data-reading-nav className={refined.actNav} aria-label={variant === "story" ? "Story chapters" : "Project chapters"}>{chapters.map((chapter, index) => <button key={chapter.label} type="button" aria-pressed={step === index} aria-current={step === index ? "step" : undefined} aria-controls={contentId} onClick={() => goTo(index)}>{chapter.label}</button>)}</nav>
+      <nav ref={navigation} data-reading-nav className={refined.actNav} aria-label={variant === "story" ? "Story chapters" : "Project chapters"}>
+        {chapters.map((chapter, index) => <button key={chapter.label} type="button" aria-pressed={step === index} aria-current={step === index ? "step" : undefined} aria-controls={contentId} onClick={() => goTo(index)}>{chapter.label}</button>)}
+        {onComplete && completeLabel && <button type="button" onClick={onComplete}>{completeLabel}</button>}
+      </nav>
     </>}
   >
     <div {...swipe} className={refined.storyDeck} data-chapter-deck data-story-deck={variant === "story" || undefined}>
