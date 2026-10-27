@@ -336,6 +336,17 @@
 .planBudget { border-left: 1px solid rgba(66,83,92,.16); padding-left: 26px; }
 .planBudget > div { display: flex; justify-content: space-between; gap: 16px; font-size: 16px; line-height: 1.6; color: #526873; padding: 7px 0; }
 .planBudget strong { font-weight: 400; white-space: nowrap; }
+.budgetSummary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 7px 0; font-size: 16px; line-height: 1.6; color: #526873; cursor: pointer; list-style: none; }
+.budgetSummary::-webkit-details-marker { display: none; }
+.budgetSummary:hover, .budgetSummary:focus-visible { color: #304b5c; }
+.budgetSummary:focus-visible { outline: 1px solid #7b8f9a; outline-offset: 4px; }
+.budgetBreakdownLabel { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.budgetBreakdownLabel svg { width: 14px; height: 14px; rotate: 90deg; transition: rotate 180ms ease; }
+.budgetDetails[open] .budgetBreakdownLabel svg { rotate: -90deg; }
+.budgetBreakdown { margin: 8px 0 14px; padding: 0 0 0 12px; border-left: 1px solid rgba(66,83,92,.16); font-size: 13px; line-height: 1.6; color: #526873; }
+.budgetBreakdown > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 5px 0; }
+.budgetBreakdown dt, .budgetBreakdown dd { margin: 0; }
+.budgetBreakdown dd { white-space: nowrap; }
 .planBudget .budgetTotal { color: #354955; font-weight: 500; border-top: 1px solid rgba(66,83,92,.16); margin-top: 7px; padding-top: 12px; }
 .revised .planBudget > p { font-size: 12px; line-height: 1.65; margin-top: 12px; color: #5b717d; }
 .revised .planCard[data-project-contact] > h2 { max-width: 680px; font-size: clamp(32px, 4vw, 54px); line-height: 1.12; letter-spacing: -.03em; margin-bottom: 24px; }

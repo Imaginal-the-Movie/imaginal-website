@@ -13,7 +13,7 @@
   "audience": {
     "tab": "Audience",
     "heading": "Audience & positioning",
-    "format": "Feature film · approx. 90 minutes · Science-fiction adventure thriller",
+    "genre": "Genre: Science-fiction adventure thriller",
     "audienceLabel": "Target audience",
     "description": "Adults ages 18–40 drawn to blockbuster adventure and provocative science fiction. They seek imaginative escapism, large-scale action and character-driven underdog stories that also explore deeper themes around power, culture and society.",
     "referencesLabel": "Creative references",
@@ -68,19 +68,33 @@
     "tab": "Production",
     "heading": "Production & funding",
     "sections": [
-      { "heading": "What we have", "text": "Completed trailer, 15-page treatment, director" },
+      { "heading": "Format", "text": "Feature film · approx. 90 minutes" },
+      { "heading": "What we have", "text": "Initial trailer, 15-page treatment, director" },
       { "heading": "What we need", "text": "Funding and mission-aligned backers and partners to bring the feature to life." },
       { "heading": "Production approach", "text": "AI-generated video with human voice performance, editing, sound design and VFX." }
     ],
     "budget": {
       "heading": "Preliminary budget",
       "items": [
-        { "label": "Development, production & post", "amount": "$750K" },
-        { "label": "Contingency", "amount": "$100K" },
-        { "label": "Marketing & release", "amount": "$250K" }
+        { "label": "Development, production & post", "amount": "$745,000", "breakdown": [
+          { "label": "Director / writer / initial creative passes", "amount": "$125,000" },
+          { "label": "Producer / budgeting / scheduling / fundraising", "amount": "$125,000" },
+          { "label": "AI generation · $1,500/min × 90 min", "amount": "$135,000" },
+          { "label": "Writing partner", "amount": "$60,000" },
+          { "label": "Editing partner", "amount": "$60,000" },
+          { "label": "VFX", "amount": "$50,000" },
+          { "label": "3D support", "amount": "$25,000" },
+          { "label": "Sound design & final mix", "amount": "$50,000" },
+          { "label": "Color grading", "amount": "$25,000" },
+          { "label": "Voice actors", "amount": "$40,000" },
+          { "label": "Legal", "amount": "$50,000" }
+        ] },
+        { "label": "Contingency", "amount": "$100,000" },
+        { "label": "Marketing & release", "amount": "$250,000" }
       ],
+      "breakdownLabel": "View breakdown",
       "totalLabel": "Full-project estimate",
-      "total": "US $1.1M",
+      "total": "US $1,095,000",
       "note": "90-minute feature. Working estimates, subject to detailed costing."
     }
   },

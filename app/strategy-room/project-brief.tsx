@@ -20,7 +20,7 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
     { label: copy.audience.tab, content: <article className={refined.planCard} data-project-beat="audience">
       <span className={refined.actCardNumber}>02 / 05</span>
       <h2>{copy.audience.heading}</h2>
-      <p className={refined.formatLine}>{copy.audience.format}</p>
+      <p className={refined.formatLine}>{copy.audience.genre}</p>
       <h3 className={refined.planSubhead}>{copy.audience.audienceLabel}</h3>
       <p>{copy.audience.description}</p>
       <h3 className={refined.planSubhead}>{copy.audience.referencesLabel}</h3>
@@ -47,7 +47,15 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
         <div>{copy.production.sections.map(section => <Fragment key={section.heading}><h3 className={refined.planSubhead}>{section.heading}</h3><p>{section.text}</p></Fragment>)}</div>
         <div id="project-budget" className={refined.planBudget}>
           <h3 className={refined.planSubhead}>{copy.production.budget.heading}</h3>
-          {copy.production.budget.items.map(item => <div key={item.label}><span>{item.label}</span><strong>{item.amount}</strong></div>)}
+          {copy.production.budget.items.map(item => "breakdown" in item && item.breakdown ? <details key={item.label} className={refined.budgetDetails}>
+            <summary className={refined.budgetSummary}>
+              <span>{item.label}</span><strong>{item.amount}</strong>
+              <span className={refined.budgetBreakdownLabel}>{copy.production.budget.breakdownLabel}<RoomIcon name="arrow-right" /></span>
+            </summary>
+            <dl className={refined.budgetBreakdown}>
+              {item.breakdown.map(line => <div key={line.label}><dt>{line.label}</dt><dd>{line.amount}</dd></div>)}
+            </dl>
+          </details> : <div key={item.label}><span>{item.label}</span><strong>{item.amount}</strong></div>)}
           <div className={refined.budgetTotal}><span>{copy.production.budget.totalLabel}</span><strong>{copy.production.budget.total}</strong></div>
           <p>{copy.production.budget.note}</p>
         </div>
