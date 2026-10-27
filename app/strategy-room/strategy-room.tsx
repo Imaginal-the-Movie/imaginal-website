@@ -157,7 +157,10 @@ export function StrategyRoom() {
       </div>
 
       <div className={`${styles.scene} ${refined.objectStage}`} data-room-objects data-map-open={mapOpen} inert={!objectsActive} aria-hidden={!objectsActive ? true : undefined}>
-        <button ref={theaterPlay} className={`${styles.hotspot} ${styles.screenHotspot} ${refined.theaterScreen}`} aria-label="Watch the trailer" data-invited={trailerInvited} onClick={() => openView("trailer")}>
+        <button ref={theaterPlay} className={`${styles.hotspot} ${styles.screenHotspot} ${refined.theaterScreen}`} aria-label="Watch the trailer" data-invited={trailerInvited} onClick={event => {
+          // Only the visible circle plays on a tap; keep keyboard/assistive activation.
+          if (event.detail === 0 || (event.target instanceof Element && event.target.closest("[data-screen-play]"))) openView("trailer");
+        }}>
           <span className={styles.screenTitle} data-screen-title>IMAGINAL</span>
           <span className={styles.playCircle} data-screen-play aria-hidden="true"><RoomIcon name="play" /></span>
           <span className={refined.objectCaption} data-screen-caption>{trailerInvited ? "PLAY TRAILER" : "WATCH THE TRAILER"}</span>

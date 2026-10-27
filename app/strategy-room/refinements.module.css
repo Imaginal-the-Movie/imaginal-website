@@ -123,11 +123,12 @@
 .objectStage[inert] > button, .objectStage[inert] .folioTrigger { pointer-events: none; }
 .objectStage[inert] .projectSlab::before { pointer-events: none; }
 .objectStage[inert] .objectCaption, .objectStage[inert] .butterflyCaption { opacity: 0; visibility: hidden; }
-.objectStage .theaterScreen { left: 29.5%; top: 14%; width: 51%; height: 29%; display: flex; justify-content: center; align-items: center; gap: 10px; padding: 0; transform: none; }
+/* The screen absorbs non-play taps so they cannot hit another object behind it. */
+.objectStage .theaterScreen { left: 29.5%; top: 14%; width: 51%; height: 29%; display: flex; justify-content: center; align-items: center; gap: 10px; padding: 0; transform: none; cursor: default; }
 .objectStage .theaterScreen:hover { transform: none; }
 .theaterScreen [data-screen-title] { font-size: clamp(17px, 1.5vw, 23px); color: #4e5d65; margin-bottom: 4px; }
-.theaterScreen [data-screen-play] { width: 64px; height: 64px; background: rgba(255,255,255,.2); transition: background 350ms, box-shadow 350ms, transform 350ms; }
-.theaterScreen:hover [data-screen-play], .theaterScreen:focus-visible [data-screen-play] { background: rgba(255,255,255,.7); box-shadow: 0 0 30px rgba(255,255,255,.65); transform: scale(1.07); }
+.theaterScreen [data-screen-play] { width: 64px; height: 64px; background: rgba(255,255,255,.2); cursor: pointer; transition: background 350ms, box-shadow 350ms, transform 350ms; }
+.theaterScreen [data-screen-play]:hover, .theaterScreen:focus-visible [data-screen-play] { background: rgba(255,255,255,.7); box-shadow: 0 0 30px rgba(255,255,255,.65); transform: scale(1.07); }
 .theaterScreen[data-invited="true"] [data-screen-play] { background: rgba(255,255,255,.72); box-shadow: 0 0 32px rgba(255,255,255,.9), 0 0 60px rgba(196,221,235,.4); animation: trailerInvitation 3s ease-in-out infinite; }
 .theaterScreen[data-invited="true"] [data-screen-play] { position: relative; }
 .theaterScreen[data-invited="true"] [data-screen-play]::after { content: ""; position: absolute; inset: -9px; border: 1.5px solid rgba(67,111,137,.75); border-radius: 50%; pointer-events: none; animation: trailerPlayRing 2.4s ease-out infinite; }
@@ -142,6 +143,7 @@
 .theaterScreen[data-invited="true"]::before { inset: 0; background: radial-gradient(ellipse, rgba(255,255,255,.35), transparent 72%); filter: blur(18px); }
 @keyframes trailerInvitation { 0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,.7), 0 0 40px rgba(196,221,235,.22); } 50% { box-shadow: 0 0 36px rgba(255,255,255,1), 0 0 65px rgba(196,221,235,.48); } }
 .objectStage[inert] .theaterScreen { opacity: 0; visibility: hidden; }
+.objectStage[inert] .theaterScreen [data-screen-play] { pointer-events: none; }
 .revised [data-room-home] { pointer-events: none; }
 .revised [data-room-home] button { pointer-events: auto; }
 .tabletopCharacters { position: absolute; top: 44%; left: 3%; width: 42%; height: 39%; perspective: 1000px; pointer-events: none; z-index: 5; }

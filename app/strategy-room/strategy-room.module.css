@@ -61,7 +61,7 @@
 .screenTitle { letter-spacing: .42em; font-size: clamp(20px, 2.4vw, 35px); padding-left: .42em; }
 .playCircle { width: 51px; height: 51px; display: grid; place-items: center; border: 1px solid rgba(67, 85, 97,.35); border-radius: 50%; font-size: 12px; padding-left: 2px; background: rgba(250,251,250,.14); transition: background 400ms, box-shadow 400ms; }
 .playCircle > svg { width: 28px; height: 28px; }
-.screenHotspot:hover .playCircle { background: rgba(255,255,255,.75); box-shadow: 0 3px 30px rgba(126,149,165,.13); }
+.screenHotspot .playCircle:hover, .screenHotspot:focus-visible .playCircle { background: rgba(255,255,255,.75); box-shadow: 0 3px 30px rgba(126,149,165,.13); }
 .hotspotLabel { font-size: 11px; letter-spacing: .04em; }
 .storyHotspot { left: 9%; top: 66%; width: 24%; }
 .projectHotspot { left: 76%; top: 66%; width: 22%; padding: 24px 0; }
