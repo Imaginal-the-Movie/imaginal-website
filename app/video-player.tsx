@@ -2,24 +2,29 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type PlayerStateEvent = { data: number };
+type PlayerStateEvent = { data: number; target: YouTubePlayer };
 type PlayerReadyEvent = { target: YouTubePlayer };
 
-type YouTubePlayer = {
+export type YouTubePlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
+  getCurrentTime: () => number;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
 };
 
-type YouTubeApi = {
+export type YouTubeApi = {
   Player: new (
     element: HTMLElement,
     options: {
       videoId: string;
-      playerVars: Record<string, number>;
+      width?: string;
+      height?: string;
+      playerVars: Record<string, number | string>;
       events: {
         onReady: (event: PlayerReadyEvent) => void;
         onStateChange: (event: PlayerStateEvent) => void;
+        onError?: () => void;
       };
     },
   ) => YouTubePlayer;
@@ -34,7 +39,7 @@ declare global {
 
 let youtubeApiPromise: Promise<YouTubeApi> | null = null;
 
-function loadYouTubeApi() {
+export function loadYouTubeApi() {
   if (window.YT?.Player) return Promise.resolve(window.YT);
   if (youtubeApiPromise) return youtubeApiPromise;
 
@@ -53,7 +58,7 @@ function loadYouTubeApi() {
     script.id = "youtube-iframe-api";
     script.src = "https://www.youtube.com/iframe_api";
     script.async = true;
-    script.onerror = () => reject(new Error("YouTube player failed to load."));
+    script.onerror = () => { script.remove(); youtubeApiPromise = null; reject(new Error("YouTube player failed to load.")); };
     document.head.appendChild(script);
   });
 
