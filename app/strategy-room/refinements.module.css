@@ -315,11 +315,12 @@
 .organizationTrigger:focus-visible .projectBrands { filter: drop-shadow(0 0 3px rgba(70,104,121,.45)); }
 .organizationDialog { position: fixed; inset: 0; box-sizing: border-box; width: min(800px, calc(100vw - 64px)); max-height: calc(100dvh - 64px); margin: auto; padding: 36px; border: 1px solid #e1e7e9; border-radius: 8px; color: #354955; background: #fcfdfc; box-shadow: 0 16px 80px rgba(35,52,64,.25); overflow-y: auto; overscroll-behavior: contain; }
 .organizationDialog::backdrop { background: rgba(38,54,63,.28); backdrop-filter: blur(5px); }
-.revised .organizationDialog > h2 { font-size: 24px; line-height: 1.4; margin: 0 36px 24px 0; }
+.revised .organizationDialog > h2 { font-size: 24px; line-height: 1.4; margin: 0 48px 24px 0; }
 .revised .organizationDialog h3 { font-size: 14px; font-weight: 500; line-height: 1.5; margin: 0 0 10px; }
 .organizationLink { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; line-height: 1.65; color: #5b717d; text-decoration: none; border-bottom: 1px solid #c4d0d6; margin: -5px 0 18px; }
 .organizationLink:hover, .organizationLink:focus-visible { color: #243f50; border-color: currentColor; }
-.revised .organizationClose { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; padding: 0; font-size: 25px; line-height: 1; border-radius: 50%; }
+.revised .organizationClose { position: absolute; top: 31px; right: 28px; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; line-height: 1; border-radius: 50%; }
+.organizationClose > svg { width: 22px; height: 22px; }
 .organizationClose:hover, .organizationClose:focus-visible { background: #e9eff0; }
 .productionFunding { display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; align-items: start; }
 .productionFunding .planSubhead:first-child { margin-top: 8px; }

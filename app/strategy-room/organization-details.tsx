@@ -30,7 +30,7 @@ export function CollaborationDialog({ dialog }: { dialog: RefObject<HTMLDialogEl
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.current?.close();
     }}>
-      <button type="button" className={refined.organizationClose} aria-label="Close collaboration details" onClick={() => dialog.current?.close()}>×</button>
+      <button type="button" className={refined.organizationClose} aria-label="Close collaboration details" onClick={() => dialog.current?.close()}><RoomIcon name="close" /></button>
       <h2 id={titleId}>A Vyby × PTI collaboration</h2>
       <div data-organization-grid className={refined.organizations}>
         <section><div className={refined.organizationLogo}><svg role="img" aria-label="Vyby" viewBox="915 273 2490 3745" className={refined.vybyBrand}><image href="/strategy-room/brands/vyby-logo-source.png" width="4384" height="4320" /></svg></div><h3>Vyby</h3><a className={refined.organizationLink} href="https://vyby.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Vyby (opens in a new tab)">vyby.com <RoomIcon name="arrow-up-right" /></a><p>Vyby scouts and develops rising AI video creators, cultivating the next generation of tastemakers through an AI studio, competition-based education, and a culture that honors creativity, craft, and contribution.</p><p>Vyby’s purpose is to expand human creative agency and connection as technology transforms how culture is made.</p></section>

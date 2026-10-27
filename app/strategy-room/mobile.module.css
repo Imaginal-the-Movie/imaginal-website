@@ -99,6 +99,7 @@
   .compact [id="project-budget"] { border-left: 0; border-top: 1px solid #d5dfe2; padding: 16px 0 0; }
   .compact [id="project-budget"] > div { font-size: 14px; }
   .compact dialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); padding: 24px 20px; }
+  .compact dialog > button[aria-label="Close collaboration details"] { top: 19px; right: 12px; }
   .compact dialog [data-organization-grid] { grid-template-columns: 1fr; }
 
   /* Selected bust and surrounding silhouettes retain a spatial arrangement. */
