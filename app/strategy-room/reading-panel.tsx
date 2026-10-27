@@ -16,11 +16,11 @@ type ReadingPanelProps = {
 };
 
 export function ReadingPanel({ id, variant, closeLabel, onClose, header, footer, children, bodyRef, scrollBody = true, edgeControls }: ReadingPanelProps) {
-  return <section data-room-object data-reading-frame data-reading-has-footer={Boolean(footer)} data-reading-has-edges={Boolean(edgeControls)} className={`${styles.surface} ${refined.readingPanel} ${variant === "story" ? refined.storySurface : refined.projectSurface}`} aria-labelledby={id}>
+  return <><span data-reading-shadow aria-hidden="true" className={refined.readingShadow} /><section data-room-object data-reading-frame data-reading-has-footer={Boolean(footer)} data-reading-has-edges={Boolean(edgeControls)} className={`${styles.surface} ${refined.readingPanel} ${variant === "story" ? refined.storySurface : refined.projectSurface}`} aria-labelledby={id}>
     <button type="button" className={refined.readingClose} aria-label={closeLabel} onClick={onClose}>×</button>
     <div data-reading-header className={refined.readingHeader}>{header}</div>
     <div ref={bodyRef} data-reading-scroll={scrollBody || undefined} tabIndex={scrollBody ? 0 : undefined} className={scrollBody ? `${refined.readingBody} ${refined.readingScroll}` : refined.readingBodyFixed}>{children}</div>
     {footer && <div data-reading-footer className={refined.readingFooter}>{footer}</div>}
     {edgeControls}
-  </section>;
+  </section></>;
 }

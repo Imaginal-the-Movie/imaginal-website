@@ -230,6 +230,7 @@
 .revised[data-focus="screen"] { --tx: -50%; --ty: -53%; --zoom: 1.055; }
 /* One shell owns the header, scrolling body and identical 75px footer. */
 .storySurface { --reading-width: 840px; }
+.readingShadow { display: none; }
 .projectSurface { --reading-width: 1000px; }
 .planCard, .organizationDialog { font-family: inherit; font-size: 16px; font-weight: 400; }
 .revised .readingPanel { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) 75px; flex: none; width: min(var(--reading-width), 100%); max-width: var(--reading-width); height: 100%; min-height: 0; max-height: 100%; margin: 0; padding: 0; border-radius: 6px; overflow: hidden; animation: brochureFocus 220ms ease-out both; }

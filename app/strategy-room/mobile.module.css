@@ -64,9 +64,12 @@
 
   /* One scroll area per reading card; controls live in their own bottom gutter. */
   .compact[data-view] [data-room-content] { min-height: 0; }
-  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) max(10px, env(safe-area-inset-right)) max(32px, calc(env(safe-area-inset-bottom) + 12px)) max(10px, env(safe-area-inset-left)); overflow: visible; }
-  /* The shell retains its shadow; only its inner reading card clips/scrolls. */
-  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 80px rgba(68,85,100,.07), inset 0 0 35px rgba(255,255,255,.4); }
+  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { --reader-top: calc(var(--room-header-height, 72px) + 8px); --reader-right: max(10px, env(safe-area-inset-right)); --reader-bottom: max(32px, calc(env(safe-area-inset-bottom) + 12px)); --reader-left: max(10px, env(safe-area-inset-left)); padding: var(--reader-top) var(--reader-right) var(--reader-bottom) var(--reader-left); overflow: visible; }
+  /* Shadow gets its own viewport-sized layer. Feather only that paint to zero
+     before Safari's toolbar boundary; the panel and text are never masked. */
+  .compact [data-reading-shadow] { display: block; position: absolute; inset: 0; height: 100dvh; z-index: -1; pointer-events: none; mask-image: linear-gradient(to bottom, #000 calc(100% - var(--reader-bottom)), transparent calc(100% - 2px)); -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--reader-bottom)), transparent calc(100% - 2px)); }
+  .compact [data-reading-shadow]::before { content: ""; position: absolute; inset: var(--reader-top) var(--reader-right) var(--reader-bottom) var(--reader-left); border-radius: 12px; box-shadow: 0 18px 80px rgba(68,85,100,.07); }
+  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 35px rgba(255,255,255,.4); }
   .compact [data-reading-header] { padding: 18px 20px 0; min-width: 0; }
   .compact [data-reading-header] h1 { margin-bottom: 4px; }
   .compact [data-reading-nav] { display: flex; flex-wrap: nowrap; width: 100%; min-width: 0; gap: 22px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
