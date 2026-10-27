@@ -3,12 +3,17 @@
 .compact [data-character-controls], .compact [data-character-close] { display: none; }
 
 @media (max-width: 700px), (max-width: 1024px) and (pointer: coarse) {
-  .compact[data-view] { --brochure-caption-top: calc(54% + 31vw + 4px); height: 100dvh; min-height: 0; overflow: hidden; }
+  /* Paint may extend under Safari's floating chrome; interaction stays within
+     the dynamic viewport and device safe areas. Scope this to this route. */
+  :global(html):has(.compact), :global(body):has(.compact) { background: #f7f8f5; color-scheme: light; }
+  :global(body):has(.compact) { height: 100lvh; }
+  .compact[data-view] { --brochure-caption-top: calc(54% + 31vw + 4px); height: 100dvh; min-height: 0; overflow: visible; background: transparent; }
+  .compact [data-room-environment] { position: fixed; inset: 0; height: 100lvh; background: #f7f8f5; }
   .compact[data-view="room"][data-map-open="false"],
   .compact [data-room-objects], .compact [data-room-header], .compact [data-room-scene], .compact [data-room-credits] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
   .compact [data-room-objects] img { -webkit-user-drag: none; }
   .compact [data-room-objects] button { touch-action: manipulation; }
-  .compact[data-view] [data-room-header] { position: relative; z-index: 50; width: 100%; box-sizing: border-box; align-items: center; padding: max(14px, env(safe-area-inset-top)) 18px 12px; gap: 16px; }
+  .compact[data-view] [data-room-header] { position: relative; z-index: 50; width: 100%; box-sizing: border-box; align-items: center; padding: max(14px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) 12px max(18px, env(safe-area-inset-left)); gap: 16px; }
   .compact [data-room-brand] { flex: none; }
   .compact [data-room-logo] { width: 150px; min-width: 0; }
   .compact [data-room-brand] > span:last-child { font-size: 8px; letter-spacing: .04em; margin-top: 8px; max-width: none; }
@@ -27,7 +32,7 @@
   .compact:has(dialog[open]) [data-room-credits] { visibility: hidden; pointer-events: none; }
 
   /* The room stays fixed; the independently placed props get a portrait composition. */
-  .compact[data-view] [data-room-scene] { width: max(100vw, 160dvh); height: 100dvh; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .compact[data-view] [data-room-scene] { width: max(100vw, 160dvh); height: 100dvh; top: 50dvh; left: 50%; transform: translate(-50%, -50%); }
   .compact[data-view] [data-room-objects] { position: fixed; left: 0; top: var(--room-header-height, 72px); width: 100vw; height: calc(100dvh - var(--room-header-height, 72px) - var(--room-footer-inset, 24px) - 12px); transform: none; min-height: 0; }
   .compact[data-map-open="true"] [data-room-objects] { opacity: 0; }
   .compact[data-view] [data-room-objects] > button { transition: opacity 300ms, filter 300ms; }
@@ -59,10 +64,9 @@
 
   /* One scroll area per reading card; controls live in their own bottom gutter. */
   .compact[data-view] [data-room-content] { min-height: 0; }
-  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) 10px max(10px, env(safe-area-inset-bottom)); }
-  /* A wide external shadow is visibly sliced at Safari's viewport edge. Keep
-     the mobile glass lighting inside the panel, where it cannot be clipped. */
-  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 24px rgba(255,255,255,.4); }
+  .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) max(10px, env(safe-area-inset-right)) max(32px, calc(env(safe-area-inset-bottom) + 12px)) max(10px, env(safe-area-inset-left)); overflow: visible; }
+  /* The shell retains its shadow; only its inner reading card clips/scrolls. */
+  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: 0 18px 80px rgba(68,85,100,.07), inset 0 0 35px rgba(255,255,255,.4); }
   .compact [data-reading-header] { padding: 18px 20px 0; min-width: 0; }
   .compact [data-reading-header] h1 { margin-bottom: 4px; }
   .compact [data-reading-nav] { display: flex; flex-wrap: nowrap; width: 100%; min-width: 0; gap: 22px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }

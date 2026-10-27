@@ -137,7 +137,7 @@ export function StrategyRoom() {
   return (
     <main ref={room} onClick={dismissOutsideObject} className={`${styles.experience} ${refined.revised} ${mobile.compact}`} data-view={view} data-nav-open={menuOpen} data-map-open={mapOpen} data-trailer-invited={trailerInvited} data-focus={view === "transmission" ? transmission[beat].focus : undefined}>
       <a href="#room-content" className={styles.skipLink}>Skip to content</a>
-      <div className={styles.environment} aria-hidden="true">
+      <div className={styles.environment} data-room-environment aria-hidden="true">
         <div className={styles.scene} data-room-scene="true">
           <Image src={`${ASSETS}/room-neutral-v4.png`} alt="" fill sizes="100vw" unoptimized preload className={styles.roomImage} />
           <div className={styles.daylight} />
