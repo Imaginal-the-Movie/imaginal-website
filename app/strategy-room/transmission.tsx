@@ -3,12 +3,12 @@
 import { RoomIcon } from "./room-icon";
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { transmission } from "./content";
+import { playTransmissionImpact } from "./transmission-signal";
 import styles from "./refinements.module.css";
 
 const positions = {
   contact: { left: "54%", top: "47%" },
   city: { left: "22%", top: "30%" },
-  tension: { left: "76%", top: "50%" },
   people: { left: "29%", top: "57%" },
   screen: { left: "56%", top: "31%" },
 };
@@ -24,17 +24,29 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
   const heading = useRef<HTMLHeadingElement>(null);
   const cloud = useRef<HTMLDivElement>(null);
   const elapsed = useRef(0);
+  const interrupted = useRef(false);
   const [paused, setPaused] = useState(false);
+  const [interrupting, setInterrupting] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const [pageHidden, setPageHidden] = useState(false);
   useEffect(() => { heading.current?.focus({ preventScroll: true }); }, []);
   const last = beat === transmission.length - 1;
-  const duration = Math.max(6500, Math.min(12000, current.text.split(/\s+/).length * 300 + 2000));
-  const stopped = paused || pageHidden || leaving;
+  const duration = Math.max(4500, Math.min(10500, current.text.split(/\s+/).length * 280 + 1500));
+  const stopped = paused || pageHidden || leaving || interrupting;
   const advance = useCallback(() => {
-    if (leaving) return;
-    if (last) setLeaving(true); else onBeat(beat + 1);
-  }, [last, leaving, onBeat, beat]);
+    if (leaving || interrupting) return;
+    if (last) setLeaving(true);
+    else if (beat === transmission.length - 2 && !interrupted.current) {
+      interrupted.current = true;
+      setInterrupting(true);
+      playTransmissionImpact();
+    } else onBeat(beat + 1);
+  }, [last, leaving, interrupting, onBeat, beat]);
+  useEffect(() => {
+    if (!interrupting) return;
+    const timer = window.setTimeout(() => { onBeat(beat + 1); setInterrupting(false); }, 440);
+    return () => window.clearTimeout(timer);
+  }, [interrupting, beat, onBeat]);
   useEffect(() => {
     if (!leaving) return;
     const timer = window.setTimeout(onComplete, 600);
@@ -61,6 +73,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
 
   useEffect(() => {
     const navigate = (event: KeyboardEvent) => {
+      if (interrupting) return;
       if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
       if (event.target instanceof Element && event.target.closest("input, textarea, select, [contenteditable='true']")) return;
       if (event.key === "ArrowRight") { event.preventDefault(); advance(); }
@@ -68,9 +81,9 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
     };
     window.addEventListener("keydown", navigate);
     return () => window.removeEventListener("keydown", navigate);
-  }, [advance, beat, onBeat]);
+  }, [advance, beat, onBeat, interrupting]);
 
-  return <section className={styles.transmissionExperience} data-transmission-experience aria-label="Skye’s interactive transmission" data-room-object data-beat={beat} data-duration={duration} data-paused={stopped} data-leaving={leaving} onClick={event => {
+  return <section className={styles.transmissionExperience} data-transmission-experience aria-label="Skye’s interactive transmission" data-room-object data-beat={beat} data-duration={duration} data-paused={stopped} data-interrupting={interrupting} data-leaving={leaving} onClick={event => {
     if (!(event.target instanceof Element) || event.target.closest("button, a")) return;
     if (!cloud.current) return;
     // The tap boundary follows the visible oval, including its breathing room.
@@ -92,6 +105,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
     </div>
     <div ref={cloud} className={styles.transmissionText} data-transmission-cloud data-room-object>
       <div className={styles.transmissionStatus}>
+      <span data-transmission-progress className={styles.transmissionProgress}>{beat + 1} of {transmission.length}<span> · {last ? "Final message" : `${transmission.length - beat - 1} left`}</span></span>
       <button className={styles.transmissionPlayback} onClick={() => setPaused(!paused)} aria-label={paused ? "Resume transmission autoplay" : "Pause transmission autoplay"} aria-pressed={paused}>
         <span className={styles.transmissionBars} aria-hidden="true">{transmission.map((line, index) => <i key={line.focus} data-state={index < beat ? "received" : index === beat ? "receiving" : "pending"} style={{ height: `${10 + (middle - Math.abs(middle - index)) * 4}px` }}><span key={beat} style={{ "--beat-duration": `${duration}ms` } as CSSProperties} /></i>)}</span>
         <span className={styles.playbackGlyph} aria-hidden="true"><RoomIcon name={paused ? "play" : "pause"} /></span>

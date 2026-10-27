@@ -191,7 +191,11 @@
 .transmissionExperience { transition: opacity 600ms ease; }
 .transmissionExperience[data-leaving="true"] { opacity: 0; pointer-events: none; }
 .signalField { position: relative; min-height: 0; }
-.transmissionStatus { position: relative; display: flex; justify-content: center; align-items: center; color: #354f60; margin-bottom: clamp(12px, 2cqh, 20px); z-index: 5; }
+.transmissionStatus { position: relative; display: flex; justify-content: center; align-items: center; gap: 16px; color: #354f60; margin-bottom: clamp(12px, 2cqh, 20px); z-index: 5; }
+.transmissionProgress { font-size: 12px; font-weight: 500; letter-spacing: .04em; white-space: nowrap; }
+.transmissionProgress > span { font-weight: 400; }
+.revised:has([data-transmission-experience][data-interrupting="true"]) :is([data-room-scene], [data-room-objects]) { animation: transmissionJolt 420ms ease-out both; }
+@keyframes transmissionJolt { 0%, 100% { translate: 0 0; rotate: 0deg; } 18% { translate: -4px 5px; rotate: -.16deg; } 43% { translate: 3px -2px; rotate: .1deg; } 72% { translate: -1px 1px; rotate: 0deg; } }
 .transmissionStatus .transmissionPlayback { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 8px 0 8px 8px; }
 .transmissionBars { display: flex; align-items: center; gap: 5px; height: 24px; }
 .transmissionBars i { display: block; position: relative; width: 4px; border-radius: 2px; overflow: hidden; background: #879aa7; }

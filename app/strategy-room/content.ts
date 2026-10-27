@@ -6,10 +6,9 @@ export const logline = storyCopy.overview.logline;
 
 export const transmission = [
   { focus: "contact", label: "Contact", text: "I’m Skye Chambers. I’m glad you made it." },
-  { focus: "city", label: "2060", text: "Out there is the world I helped build. Where energy is abundant." },
-  { focus: "tension", label: "The unfinished work", text: "But that world still depends on a handful of machines. And someone wants to control them." },
+  { focus: "city", label: "2060", text: "I helped build a world where energy is abundant. But even now, someone is trying to control it." },
   { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve—and her AI partner—to finish what I couldn’t. But the danger is even greater than they know…" },
-  { focus: "screen", label: "The vision", text: "I invited you here because there's something I'd like you to see." },
+  { focus: "screen", label: "The vision", text: "I have to go. But before I do, there’s something I’d like you to see." },
 ] as const;
 
 export const characters = {

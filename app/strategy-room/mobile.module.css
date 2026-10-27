@@ -60,7 +60,7 @@
   .compact[data-view="room"][data-trailer-invited="true"][data-map-open="false"] [data-room-objects] { transform: none; }
   .compact[data-trailer-invited="true"] [data-room-objects] > button[aria-label="Watch the trailer"] { left: 6%; top: 4%; width: 88%; height: 40%; }
   .compact [data-room-objects] > button:has(> span:first-child):is([data-room-object]) { min-height: 44px; }
-  .compact [data-room-objects] > [data-trailer-return] { left: auto; right: 12px; top: 12px; white-space: nowrap; transform: none; padding: 10px 16px; font-size: 12px; }
+  .compact [data-room-objects] > [data-trailer-return] { left: 50%; right: auto; top: auto; bottom: 8%; white-space: nowrap; transform: translateX(-50%); padding: 10px 16px; font-size: 12px; }
 
   /* One scroll area per reading card; controls live in their own bottom gutter. */
   .compact[data-view] [data-room-content] { min-height: 0; }
