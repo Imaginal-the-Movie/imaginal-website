@@ -60,7 +60,9 @@
   /* One scroll area per reading card; controls live in their own bottom gutter. */
   .compact[data-view] [data-room-content] { min-height: 0; }
   .compact:is([data-view="story"], [data-view="project"]) [data-room-content] { padding: calc(var(--room-header-height, 72px) + 8px) 10px max(10px, env(safe-area-inset-bottom)); }
-  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; }
+  /* A wide external shadow is visibly sliced at Safari's viewport edge. Keep
+     the mobile glass lighting inside the panel, where it cannot be clipped. */
+  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 24px rgba(255,255,255,.4); }
   .compact [data-reading-header] { padding: 18px 20px 0; min-width: 0; }
   .compact [data-reading-header] h1 { margin-bottom: 4px; }
   .compact [data-reading-nav] { display: flex; flex-wrap: nowrap; width: 100%; min-width: 0; gap: 22px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
@@ -68,12 +70,13 @@
   .compact [data-reading-nav] button { min-height: 44px; flex: none; white-space: nowrap; padding: 12px 0; }
   .compact [data-reading-frame] > button[aria-label^="Close"] { width: 40px; height: 40px; top: 5px; right: 5px; }
   .compact [data-chapter-deck] { touch-action: pan-y; }
-  .compact [data-reading-scroll] { inset: 10px 12px 12px; padding: 20px; min-width: 0; box-sizing: border-box; scrollbar-gutter: auto; }
+  .compact [data-reading-scroll] { inset: 10px 12px 12px; padding: 20px; min-width: 0; box-sizing: border-box; scrollbar-gutter: auto; box-shadow: none; }
   .compact [data-chapter-deck] > button { top: 22px; bottom: 24px; width: calc(100% - 24px); }
   .compact [data-chapter-deck] > button:first-child { left: 6px; }
   .compact [data-chapter-deck] > button:last-child { right: 6px; }
   .compact [data-chapter-deck] > button > span { display: none; }
   .compact [data-reading-prev], .compact [data-reading-next] { width: 44px; height: 44px; top: auto; bottom: 7px; translate: none; transform: none; }
+  .compact[data-view] :is([data-reading-prev], [data-reading-next]) { box-shadow: 0 2px 6px rgba(78,100,114,.1); }
   .compact [data-reading-prev] { left: 16px; }
   .compact [data-reading-next] { right: 16px; }
   .compact [data-reading-prev] svg, .compact [data-reading-next] svg { width: 22px; height: 22px; }
