@@ -8,6 +8,7 @@ import { TabletopCharacters, type Character } from "./character-projections";
 import { CharacterFolio } from "./character-folio";
 import { CollaborationDialog } from "./organization-details";
 import { Transmission } from "./transmission";
+import { playTransmissionSignal } from "./transmission-signal";
 import { Trailer } from "./trailer";
 import { LayoutDiagnostics } from "./layout-diagnostics";
 import { ProjectBrief, type ProjectEntry } from "./project-brief";
@@ -113,7 +114,7 @@ export function StrategyRoom() {
     return () => media.removeEventListener("change", reset);
   }, []);
 
-  const openTransmission = () => { setBeat(0); openView("transmission"); };
+  const openTransmission = () => { playTransmissionSignal(); setBeat(0); openView("transmission"); };
   const contact = () => { openView("project"); setProjectEntry(entry => ({ section: "contact", revision: entry.revision + 1 })); };
   const activeCharacter = hoveredCharacter ?? pinnedCharacter;
   const isStory = view === "story";
