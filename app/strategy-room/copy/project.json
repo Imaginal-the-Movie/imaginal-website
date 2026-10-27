@@ -1,0 +1,94 @@
+{
+  "panelTitle": "The Project",
+  "whyNow": {
+    "tab": "Why now",
+    "heading": "Why this / why now",
+    "lead": "As AI changes how we work and create, what can each of us bring?",
+    "paragraphs": [
+      "AI is changing how we work and create—and who controls the systems shaping our lives. Our task is to harness progress to expand freedom and creative agency, even in abundance.",
+      "We can remain distinct, contribute, and belong without surrendering freedom. Discovering that possibility for ourselves can loosen resistance and change beliefs—and those beliefs shape the stories we tell about the future.",
+      "Imaginal gives that challenge a human shape: Eve’s insecurity, Skye’s difficulty letting go, and Robot’s difference. Through their relationships, audiences can recognize the possibility within themselves. The film’s reason to exist is to make that possibility felt."
+    ]
+  },
+  "audience": {
+    "tab": "Audience",
+    "heading": "Audience & positioning",
+    "format": "Feature film · approx. 90 minutes · Science-fiction adventure thriller",
+    "audienceLabel": "Target audience",
+    "description": "Adults ages 18–40 drawn to blockbuster adventure and provocative science fiction. They seek imaginative escapism, large-scale action and character-driven underdog stories that also explore deeper themes around power, culture and society.",
+    "referencesLabel": "Creative references",
+    "references": [
+      { "title": "The Creator", "description": "Immersive future worlds, large-scale action, human–AI relationships." },
+      { "title": "Tomorrowland", "description": "Imaginative technology, wonder, discovery and youthful adventure." }
+    ]
+  },
+  "team": {
+    "tab": "Team",
+    "heading": "The people behind Imaginal",
+    "people": [
+      {
+        "name": "Damien “Chase” Foster",
+        "linkedin": "https://www.linkedin.com/in/chasehattan/",
+        "role": "Director / Writer / Producer",
+        "bio": "Chase has spent his life helping creators find their creative spark—and building the tools and systems that help them hold onto it.",
+        "credentials": [
+          "Co-founder, Vyby",
+          "Software engineer, AI agent builder, 3D",
+          "20+ years in film and music production",
+          "Creative director to top influencers"
+        ]
+      },
+      {
+        "name": "Lucy Liu",
+        "linkedin": "https://www.linkedin.com/in/glucyliu/",
+        "role": "Writer / Producer",
+        "bio": "Lucy builds systems and cultures around conscious participation, helping people feel fully expressed, connected and alive.",
+        "credentials": [
+          "Co-founder, Vyby",
+          "1st PM / Ex-VP of Product, lifestyle membership FabFitFun (Series A, unicorn)",
+          "Ex-Disney gaming & J.P. Morgan IBD"
+        ]
+      },
+      {
+        "name": "Mika Onishi",
+        "linkedin": "https://www.linkedin.com/in/mikaonishi/",
+        "role": "Writer / Producer",
+        "bio": "Mika works to put technology in service of human sovereignty and collective intelligence, enabling greater human flourishing.",
+        "credentials": [
+          "Co-founder and Chair of the Positive Technology Institute",
+          "General Partner, PORTAL Venture Partners",
+          "Founder, House of Remembering"
+        ]
+      }
+    ],
+    "advisorsLabel": "Advised & supported by the Positive Technology Institute Advisory Board:",
+    "advisors": "Tom Kehler, Dr. Karina Alexanyan, Jason Bateman, Sanaz Abravani and Peter Loukianoff"
+  },
+  "production": {
+    "tab": "Production",
+    "heading": "Production & funding",
+    "sections": [
+      { "heading": "What we have", "text": "Completed trailer, 15-page treatment, director" },
+      { "heading": "What we need", "text": "Funding and mission-aligned backers and partners to bring the feature to life." },
+      { "heading": "Production approach", "text": "AI-generated video with human voice performance, editing, sound design and VFX." }
+    ],
+    "budget": {
+      "heading": "Preliminary budget",
+      "items": [
+        { "label": "Development, production & post", "amount": "$750K" },
+        { "label": "Contingency", "amount": "$100K" },
+        { "label": "Marketing & release", "amount": "$250K" }
+      ],
+      "totalLabel": "Full-project estimate",
+      "total": "US $1.1M",
+      "note": "90-minute feature. Working estimates, subject to detailed costing."
+    }
+  },
+  "contact": {
+    "tab": "Contact",
+    "heading": "Help bring Imaginal to life.",
+    "email": "lucy@vyby.com",
+    "emailSubject": "Imaginal — let’s talk",
+    "description": "We’re looking for partners who connect with the film and want to help shape its next stage."
+  }
+}

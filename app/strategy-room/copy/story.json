@@ -1,0 +1,37 @@
+{
+  "panelTitle": "The story",
+  "overview": {
+    "tab": "Overview",
+    "label": "THE PREMISE",
+    "logline": "In 2060, a gifted young scientist inherits her mother’s mission to keep humanity free. But when a hidden threat emerges, she and an unlikely Robot partner must confront something far greater than a struggle for control."
+  },
+  "acts": [
+    {
+      "number": "01",
+      "title": "Act I — An unfinished inheritance",
+      "paragraphs": [
+        "It’s 2060. Energy is abundant, and human–AI partnerships have transformed what civilization can create. Knowledge is shared through the Commons, a decentralized network linking people and their AI partners. Skye Chambers helped build this world. Now her company wants to tighten its control over the energy infrastructure on which that freedom depends.",
+        "Skye turns to her daughter Eve with unfinished research that could open another path. Barely out of university and accustomed to her mother’s shadow, Eve sees an impossible task. Her new partner, Robot, knows more than she could learn in a lifetime. What could she possibly bring that he cannot?"
+      ]
+    },
+    {
+      "number": "02",
+      "title": "Act II — Into the forbidden rainforest",
+      "paragraphs": [
+        "Robot brings Eve to the edge of what is known. Eve’s creative leaps carry them beyond it. Through failed prototypes, frustration, laughter, and the unfamiliar intimacy of making something together, an unlikely friendship forms.",
+        "The CEO—Eve’s boyfriend’s father—threatens to expose his affair with Skye. When he holds her and the board at gunpoint, she secretly signals Eve’s father for help.",
+        "Eve recognizes a creature in laboratory footage—something she glimpsed in the forbidden rainforest. Its biology could hold a clue to their research. She, Robot, and her boyfriend return to find it.",
+        "Deep in the forest, they discover the laboratory specimen was only a juvenile. Something vastly larger is moving around them."
+      ]
+    },
+    {
+      "number": "03",
+      "title": "Act III — A different kind of power",
+      "paragraphs": [
+        "As the alien threat grows, Eve stops asking how three people can solve the problem alone. Through the Commons, she invites human–AI partnerships around the world to contribute. Robot helps turn her prototype into the seed of a distributed energy network.",
+        "Meanwhile, Eve’s father infiltrates the company to reach Skye. The CEO exposes Skye's betrayal as husband and wife work together to keep the existing energy system stable. When the CEO attempts to shut down the old generators, Skye kills him and stops the reset.",
+        "Eve’s living network gives the aliens no single center to destroy. The aliens withdraw as humanity becomes harder to disable. Skye sees her daughter carry their work beyond what she imagined. Eve takes Robot’s hand, recognizing that their difference makes their partnership possible. But the fight is not over. The act closes with Eve's boyfriend receiving a notification: Skye has killed his father. To be continued..."
+      ]
+    }
+  ]
+}
