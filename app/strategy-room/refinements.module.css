@@ -194,8 +194,17 @@
 .transmissionStatus { position: relative; display: flex; justify-content: center; align-items: center; gap: 16px; color: #354f60; margin-bottom: clamp(12px, 2cqh, 20px); z-index: 5; }
 .transmissionProgress { font-size: 12px; font-weight: 500; letter-spacing: .04em; white-space: nowrap; }
 .transmissionProgress > span { font-weight: 400; }
-.revised:has([data-transmission-experience][data-interrupting="true"]) :is([data-room-scene], [data-room-objects]) { animation: transmissionJolt 420ms ease-out both; }
-@keyframes transmissionJolt { 0%, 100% { translate: 0 0; rotate: 0deg; } 18% { translate: -4px 5px; rotate: -.16deg; } 43% { translate: 3px -2px; rotate: .1deg; } 72% { translate: -1px 1px; rotate: 0deg; } }
+.revised:has([data-transmission-experience][data-interrupting="true"]) :is([data-room-scene], [data-room-objects]) { animation: transmissionJolt 680ms ease-out both; }
+@keyframes transmissionJolt { 0%, 100% { translate: 0 0; rotate: 0deg; } 12% { translate: -10px 9px; rotate: -.6deg; } 30% { translate: 8px -6px; rotate: .4deg; } 50% { translate: -5px 4px; rotate: -.22deg; } 72% { translate: 3px -2px; rotate: .1deg; } 88% { translate: -1px 1px; rotate: 0deg; } }
+.transmissionFracture { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; }
+.revised:has([data-transmission-experience][data-interrupted="true"]) .transmissionFracture { opacity: 1; }
+.revised:has([data-transmission-experience][data-interrupted="true"]) .fractureCracks > path { animation: fractureTrace 180ms ease-out both; }
+.fractureCracks { opacity: .6; }
+.fractureCracks > path { stroke-dasharray: 1; stroke-linejoin: round; }
+@keyframes fractureTrace { from { stroke-dashoffset: 1; opacity: 0; } to { stroke-dashoffset: 0; opacity: 1; } }
+.fractureFleck { opacity: 0; }
+.revised:has([data-transmission-experience][data-interrupted="true"]) .fractureFleck { animation: fractureFall 950ms ease-in both; }
+@keyframes fractureFall { 0% { opacity: 0; translate: 0 0; rotate: 0deg; } 12% { opacity: .75; } 100% { opacity: 0; translate: var(--fall-x) var(--fall-y); rotate: 100deg; } }
 .transmissionStatus .transmissionPlayback { display: flex; align-items: center; gap: 14px; min-height: 44px; padding: 8px 0 8px 8px; }
 .transmissionBars { display: flex; align-items: center; gap: 5px; height: 24px; }
 .transmissionBars i { display: block; position: relative; width: 4px; border-radius: 2px; overflow: hidden; background: #879aa7; }

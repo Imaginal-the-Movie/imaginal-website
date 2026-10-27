@@ -44,7 +44,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
   }, [last, leaving, interrupting, onBeat, beat]);
   useEffect(() => {
     if (!interrupting) return;
-    const timer = window.setTimeout(() => { onBeat(beat + 1); setInterrupting(false); }, 440);
+    const timer = window.setTimeout(() => { onBeat(beat + 1); setInterrupting(false); }, 720);
     return () => window.clearTimeout(timer);
   }, [interrupting, beat, onBeat]);
   useEffect(() => {
@@ -83,7 +83,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
     return () => window.removeEventListener("keydown", navigate);
   }, [advance, beat, onBeat, interrupting]);
 
-  return <section className={styles.transmissionExperience} data-transmission-experience aria-label="Skye’s interactive transmission" data-room-object data-beat={beat} data-duration={duration} data-paused={stopped} data-interrupting={interrupting} data-leaving={leaving} onClick={event => {
+  return <section className={styles.transmissionExperience} data-transmission-experience aria-label="Skye’s interactive transmission" data-room-object data-beat={beat} data-duration={duration} data-paused={stopped} data-interrupting={interrupting} data-interrupted={interrupted.current} data-leaving={leaving} onClick={event => {
     if (!(event.target instanceof Element) || event.target.closest("button, a")) return;
     if (!cloud.current) return;
     // The tap boundary follows the visible oval, including its breathing room.

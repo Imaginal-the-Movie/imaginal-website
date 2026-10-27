@@ -8,6 +8,7 @@ import { TabletopCharacters, type Character } from "./character-projections";
 import { CharacterFolio } from "./character-folio";
 import { CollaborationDialog } from "./organization-details";
 import { Transmission } from "./transmission";
+import { TransmissionFracture } from "./transmission-fracture";
 import { playTransmissionSignal } from "./transmission-signal";
 import { Trailer } from "./trailer";
 import { LayoutDiagnostics } from "./layout-diagnostics";
@@ -142,6 +143,7 @@ export function StrategyRoom() {
         <div className={styles.scene} data-room-scene="true">
           <Image src={`${ASSETS}/room-neutral-v4.png`} alt="" fill sizes="100vw" unoptimized preload className={styles.roomImage} />
           <div className={styles.daylight} />
+          {view === "transmission" && <TransmissionFracture />}
           <div className={styles.atoms}>
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ left: `${(i * 41 + 9) % 100}%`, top: `${(i * 23 + 13) % 100}%`, animationDelay: `${-i * 0.7}s` }} />)}
           </div>
