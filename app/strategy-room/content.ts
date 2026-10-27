@@ -5,18 +5,17 @@ export const PITCH_URL = "https://www.canva.com/design/DAHY4hps7FU/j3nVZ9XtiZdN9
 export const logline = storyCopy.overview.logline;
 
 export const transmission = [
-  { focus: "contact", label: "Contact", text: "You made it. My name is Skye Chambers." },
-  { focus: "city", label: "2060", text: "Out there is the world we built. Energy is abundant." },
-  { focus: "horizon", label: "The possibility", text: "What would you create if survival no longer took everything you had?" },
-  { focus: "tension", label: "The unfinished work", text: "But that freedom still depends on a handful of machines. And someone wants to control them." },
-  { focus: "present", label: "Your time", text: "It reminds me of your time, really. AI opened a new creative horizon—and a familiar struggle over who gets to shape it." },
-  { focus: "people", label: "Eve & Robot", text: "I’ve entrusted my daughter, Eve, and her AI partner with the work I haven’t finished. There’s more at stake than they know." },
-  { focus: "screen", label: "The vision", text: "The future needs people who can see what’s possible. There’s something I’d like you to see." },
+  { focus: "contact", label: "Contact", text: "I’m Skye Chambers. I’m glad you made it." },
+  { focus: "city", label: "2060", text: "Out there is the world I helped build. Where energy is abundant." },
+  { focus: "tension", label: "The unfinished work", text: "But that world still depends on a handful of machines. And someone wants to control them." },
+  { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve—and her AI partner—to finish what I couldn’t. But the danger is even greater than they know…" },
+  { focus: "screen", label: "The vision", text: "I invited you here because there's something I'd like you to see." },
 ] as const;
 
 export const characters = {
   eve: {
     name: "Eve",
+    fullName: "Eve Chambers",
     caption: "A young scientist takes up her mother’s unfinished research. To find her own way forward, she must learn to trust what she can bring.",
     label: "The unfinished work",
     description: "A young scientist carrying work her mother could not finish, Eve must discover what she can contribute on her own terms.",
@@ -33,6 +32,7 @@ export const characters = {
   },
   skye: {
     name: "Skye",
+    fullName: "Skye Chambers",
     caption: "The scientist who helped make energy abundant now fights to keep its future open. Her hardest task is trusting her daughter to carry the work forward.",
     label: "The pioneer",
     description: "Eve’s mother helped give the world abundant energy. Now she is fighting to keep its future open.",

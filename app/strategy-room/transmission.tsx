@@ -5,12 +5,13 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 import { transmission } from "./content";
 import styles from "./refinements.module.css";
 
-const positions = [
-  { left: "54%", top: "47%" }, { left: "22%", top: "30%" },
-  { left: "34%", top: "26%" }, { left: "76%", top: "50%" },
-  { left: "62%", top: "30%" }, { left: "29%", top: "57%" },
-  { left: "56%", top: "31%" },
-];
+const positions = {
+  contact: { left: "54%", top: "47%" },
+  city: { left: "22%", top: "30%" },
+  tension: { left: "76%", top: "50%" },
+  people: { left: "29%", top: "57%" },
+  screen: { left: "56%", top: "31%" },
+};
 
 export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
   beat: number;
@@ -19,6 +20,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
   onDismiss: () => void;
 }) {
   const current = transmission[beat];
+  const middle = (transmission.length - 1) / 2;
   const heading = useRef<HTMLHeadingElement>(null);
   const cloud = useRef<HTMLDivElement>(null);
   const elapsed = useRef(0);
@@ -83,7 +85,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
     if (x * x + y * y <= 1) advance(); else onDismiss();
   }}>
     <div className={styles.signalField} aria-hidden="true">
-      <div className={styles.signalLight} style={positions[beat]}>
+      <div className={styles.signalLight} style={positions[current.focus]}>
         <span className={styles.signalHalo} /><span className={styles.signalCore} />
         <span className={styles.signalParticles}>{Array.from({ length: 12 }, (_, i) => <i key={i} style={{ "--angle": `${i * 30}deg`, "--distance": `${24 + (i % 3) * 13}px`, animationDelay: `${i * -.3}s` } as CSSProperties} />)}</span>
       </div>
@@ -91,7 +93,7 @@ export function Transmission({ beat, onBeat, onComplete, onDismiss }: {
     <div ref={cloud} className={styles.transmissionText} data-transmission-cloud data-room-object>
       <div className={styles.transmissionStatus}>
       <button className={styles.transmissionPlayback} onClick={() => setPaused(!paused)} aria-label={paused ? "Resume transmission autoplay" : "Pause transmission autoplay"} aria-pressed={paused}>
-        <span className={styles.transmissionBars} aria-hidden="true">{transmission.map((line, index) => <i key={line.focus} data-state={index < beat ? "received" : index === beat ? "receiving" : "pending"} style={{ height: `${10 + (3 - Math.abs(3 - index)) * 4}px` }}><span key={beat} style={{ "--beat-duration": `${duration}ms` } as CSSProperties} /></i>)}</span>
+        <span className={styles.transmissionBars} aria-hidden="true">{transmission.map((line, index) => <i key={line.focus} data-state={index < beat ? "received" : index === beat ? "receiving" : "pending"} style={{ height: `${10 + (middle - Math.abs(middle - index)) * 4}px` }}><span key={beat} style={{ "--beat-duration": `${duration}ms` } as CSSProperties} /></i>)}</span>
         <span className={styles.playbackGlyph} aria-hidden="true"><RoomIcon name={paused ? "play" : "pause"} /></span>
       </button>
       </div>

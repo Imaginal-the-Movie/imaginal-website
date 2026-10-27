@@ -8,6 +8,10 @@ import { useSwipeNavigation } from "./use-swipe-navigation";
 
 export type Character = keyof typeof characters;
 const characterOrder: Character[] = ["skye", "eve", "robot", "ceo", "boyfriend"];
+const fullName = (key: Character) => {
+  const character = characters[key];
+  return "fullName" in character ? character.fullName : character.name;
+};
 
 // Preserve the original film engraving independently of the new map portraits.
 export function FolioEngraving() {
@@ -106,8 +110,8 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
         <CharacterProjection kind={key} />
         <span className={styles.bustName}>{characters[key].name}</span>
       </button>
-      {selected === key && <aside id={`character-detail-${key}`} data-character-detail data-room-object className={styles.characterDetail} aria-label={`${characters[key].name} character introduction`}>
-        <h2>{characters[key].name}</h2><p>{characters[key].caption}</p>
+      {selected === key && <aside id={`character-detail-${key}`} data-character-detail data-room-object className={styles.characterDetail} aria-label={`${fullName(key)} character introduction`}>
+        <h2>{fullName(key)}</h2><p>{characters[key].caption}</p>
         <span className={styles.characterNextCue} aria-hidden="true">Next character <RoomIcon name="arrow-right" /></span>
         <button ref={nextButton} type="button" className={styles.characterNext} aria-label="Next character" onClick={() => cycleCharacter(1, true)} />
       </aside>}
