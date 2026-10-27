@@ -338,8 +338,9 @@
 .planBudget strong { font-weight: 400; white-space: nowrap; }
 .planBudget .budgetTotal { color: #354955; font-weight: 500; border-top: 1px solid rgba(66,83,92,.16); margin-top: 7px; padding-top: 12px; }
 .revised .planBudget > p { font-size: 12px; line-height: 1.65; margin-top: 12px; color: #5b717d; }
-.planContact { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; margin: 0 0 18px; }
-.planContact > a { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; line-height: 1.6; text-decoration: none; padding-bottom: 8px; border-bottom: 1px solid rgba(66,83,92,.25); }
+.revised .planCard[data-project-contact] > h2 { max-width: 680px; font-size: clamp(32px, 4vw, 54px); line-height: 1.12; letter-spacing: -.03em; margin-bottom: 24px; }
+.planContact { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; margin: 26px 0 0; }
+.planContact > a { display: inline-flex; align-items: center; gap: 12px; font-size: 18px; line-height: 1.6; text-decoration: none; padding-bottom: 8px; border-bottom: 1px solid rgba(66,83,92,.25); }
 .planPitch { display: inline-flex; align-items: center; gap: 18px; margin-top: 8px; font-size: 12px; color: #6c818c !important; text-decoration: none; padding-bottom: 8px; border-bottom: 1px solid rgba(66,83,92,.25); }
 .actNav { display: flex; gap: 24px; border-bottom: 1px solid rgba(66,83,92,.18); }
 .actNav button { position: relative; padding: 9px 0 11px; min-width: 42px; font-size: 12px; line-height: 1.4; color: #7b8c96; }

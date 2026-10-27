@@ -15,7 +15,7 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
       <span className={refined.actCardNumber}>01 / 05</span>
       <h2>{copy.whyNow.heading}</h2>
       <p className={refined.planLead}>{copy.whyNow.lead}</p>
-      {copy.whyNow.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+      {copy.whyNow.paragraphs.map((paragraph, index) => <p key={index}>{paragraph.startsWith("Imaginal ") ? <><em>Imaginal</em>{paragraph.slice("Imaginal".length)}</> : paragraph}</p>)}
     </article> },
     { label: copy.audience.tab, content: <article className={refined.planCard} data-project-beat="audience">
       <span className={refined.actCardNumber}>02 / 05</span>
@@ -56,8 +56,8 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
     { label: copy.contact.tab, content: <article className={refined.planCard} data-project-beat="join" data-project-contact>
       <span className={refined.actCardNumber}>05 / 05</span>
       <h2>{copy.contact.heading}</h2>
-      <div className={refined.planContact}><a href={`mailto:${copy.contact.email}?subject=${encodeURIComponent(copy.contact.emailSubject)}`}>{copy.contact.email} <RoomIcon name="arrow-up-right" /></a></div>
       <p className={refined.planLead}>{copy.contact.description}</p>
+      <div className={refined.planContact}><a href={`mailto:${copy.contact.email}?subject=${encodeURIComponent(copy.contact.emailSubject)}`}>Contact: {copy.contact.email} <RoomIcon name="arrow-up-right" /></a></div>
     </article> },
   ];
   return <ChapterSequence variant="project" title={copy.panelTitle} titleRef={titleRef} onClose={onClose} chapters={chapters} initialIndex={entry.section === "contact" ? chapters.length - 1 : 0} resetKey={entry.revision} />;
