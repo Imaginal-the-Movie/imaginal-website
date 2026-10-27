@@ -103,21 +103,21 @@
 
   /* Selected bust and surrounding silhouettes retain a spatial arrangement. */
   .compact [data-room-home] { position: absolute; inset: 0; min-height: 0; padding: 0; }
-  .compact [data-character-map] { position: fixed; left: 50%; right: auto; top: calc((100dvh + var(--room-header-height, 72px) - var(--room-footer-inset, 24px)) / 2); bottom: auto; width: min(600px, calc(100vw - 36px)); height: min(500px, calc(100dvh - var(--room-header-height, 72px) - var(--room-footer-inset, 24px) - 32px)); transform: translate(-50%, -50%); margin: 0; perspective: none; }
+  .compact [data-character-map] { --character-hero-height: clamp(230px, 44dvh, 360px); --character-detail-top: calc(var(--character-hero-height) + 26px); position: fixed; left: 50%; right: auto; top: calc((100dvh + var(--room-header-height, 72px)) / 2); bottom: auto; width: min(600px, calc(100vw - 36px)); height: min(760px, calc(100dvh - var(--room-header-height, 72px) - 24px)); transform: translate(-50%, -50%); margin: 0; perspective: none; }
   .compact [data-character-orbit] { height: 100%; touch-action: pan-y; }
   .compact [data-character-close] { position: absolute; display: grid; place-items: center; right: 0; top: 0; width: 40px; height: 40px; font-size: 24px; z-index: 20; pointer-events: auto; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-selected="true"] { position: static; transform: none; width: auto; height: auto; }
-  .compact [data-character-map] [data-selected="true"] > button { position: absolute; left: calc(50% - 72px); top: 18px; width: 144px; height: 216px; transform: none; }
+  .compact [data-character-map] [data-selected="true"] > button { position: absolute; left: calc(50% - var(--character-hero-height) / 3); top: 8px; width: calc(var(--character-hero-height) * 2 / 3); height: var(--character-hero-height); transform: none; z-index: 10; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot]:not([data-selected="true"]) { bottom: auto; height: 130px; width: 86px; transform: none; }
-  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="1"] { left: 0; top: 52px; }
-  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="2"] { left: 12%; top: 0; width: 58px; height: 86px; }
-  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="3"] { left: auto; right: 12%; top: 0; width: 58px; height: 86px; }
-  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="4"] { left: auto; right: 0; top: 52px; }
+  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="1"] { left: 0; top: calc(var(--character-hero-height) * .44); }
+  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="2"] { left: 10%; top: calc(var(--character-hero-height) * .1); width: 64px; height: 96px; }
+  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="3"] { left: auto; right: 10%; top: calc(var(--character-hero-height) * .1); width: 64px; height: 96px; }
+  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="4"] { left: auto; right: 0; top: calc(var(--character-hero-height) * .44); }
   .compact [data-character-map] [data-orbit-slot]:not([data-selected="true"]) > button { height: 100%; }
-  .compact [data-character-detail] { position: absolute; left: 0; right: 0; top: 255px; bottom: 66px; width: auto; margin: 0; padding: 16px 14px; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; border: 1px solid rgba(217,229,234,.8); border-radius: 8px; background: rgba(251,253,251,.88); backdrop-filter: blur(18px); }
+  .compact [data-character-detail] { position: absolute; left: 0; right: 0; top: var(--character-detail-top); bottom: auto; max-height: calc(100% - var(--character-detail-top) - 72px); width: auto; margin: 0; padding: 14px; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; border: 1px solid rgba(217,229,234,.8); border-radius: 8px; background: rgba(251,253,251,.88); backdrop-filter: blur(18px); }
   .compact [data-character-detail]::before { display: none; }
-  .compact [data-character-detail] h2 { font-size: 22px; margin-bottom: 10px; }
-  .compact [data-character-detail] p { font-size: 16px; line-height: 1.6; }
+  .compact [data-character-detail] h2 { font-size: 22px; margin-bottom: 8px; }
+  .compact [data-character-detail] p { font-size: 16px; line-height: 1.5; }
   .compact [data-character-detail] > span { display: none; }
   .compact [data-character-controls] { position: absolute; display: flex; justify-content: space-between; align-items: center; left: 0; right: 0; bottom: 0; height: 52px; pointer-events: auto; }
   .compact [data-character-controls] button { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #b7c8d1; border-radius: 50%; background: rgba(255,255,255,.9); font-size: 22px; }
@@ -138,8 +138,10 @@
   .compact[data-view] { --brochure-caption-top: calc(53% + 31vw + 4px); }
   .compact [data-project-object] { top: max(71%, calc(var(--brochure-caption-top) + 48px - 9.3%)); height: 30%; }
   .compact [data-brochure-object] { top: 53%; }
-  .compact [data-character-map] [data-selected="true"] > button { top: 8px; width: 120px; height: 180px; left: calc(50% - 60px); }
-  .compact [data-character-detail] { top: 205px; }
+}
+
+@media (max-width: 700px) and (max-height: 600px) and (orientation: portrait) {
+  .compact [data-character-map] { --character-hero-height: clamp(180px, 36dvh, 216px); }
 }
 
 @media (max-width: 1024px) and (pointer: coarse) and (orientation: landscape) {
@@ -160,7 +162,7 @@
   .compact [data-brochure-label] { left: 78%; top: 32%; }
   .compact [data-character-map] [data-selected="true"] > button { left: 12%; top: 12px; width: 112px; height: 168px; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot]:not([data-selected="true"]) { display: none; }
-  .compact [data-character-detail] { left: 38%; top: 0; bottom: 58px; }
+  .compact [data-character-detail] { left: 38%; top: 0; bottom: 58px; max-height: none; }
   .compact [data-character-controls] { left: 38%; }
   .compact [data-transmission-experience] { grid-template-rows: 0 minmax(0, 1fr); padding: 16px 16% 24px; align-items: center; }
   .compact [data-transmission-line] { font-size: 20px; }
