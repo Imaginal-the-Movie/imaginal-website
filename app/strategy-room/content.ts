@@ -7,7 +7,7 @@ export const logline = storyCopy.overview.logline;
 export const transmission = [
   { focus: "contact", label: "Contact", text: "I’m Skye Chambers. I’m glad you made it." },
   { focus: "city", label: "2060", text: "I helped build a world where energy is abundant. But even now, someone is trying to control it." },
-  { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve—and her AI partner—to finish what I couldn’t. But the danger is even greater than they know…" },
+  { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve and her AI partner to finish my work. But there’s more at stake than they realize." },
   { focus: "screen", label: "The vision", text: "I have to go. But before I do, there’s something I’d like you to see." },
 ] as const;
 
