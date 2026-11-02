@@ -7,7 +7,7 @@ import styles from "./refinements.module.css";
 import { useSwipeNavigation } from "./use-swipe-navigation";
 
 export type Character = keyof typeof characters;
-const characterOrder: Character[] = ["skye", "eve", "robot", "ceo", "boyfriend"];
+const characterOrder: Character[] = ["skye", "eve", "robot", "ceo", "boyfriend", "phoenix", "jason"];
 const fullName = (key: Character) => {
   const character = characters[key];
   return "fullName" in character ? character.fullName : character.name;
