@@ -242,7 +242,7 @@ export function StrategyRoom() {
         {view === "brochure" && <section data-room-object data-brochure-preview role="dialog" aria-modal="true" aria-labelledby="brochure-title" aria-describedby="brochure-note" className={refined.brochurePreview}>
           <div className={refined.brochurePreviewHeader}>
             <div><h1 ref={panelTitle} tabIndex={-1} id="brochure-title">DETAILED BROCHURE</h1><p id="brochure-note">Dive deeper into the Imaginal story, world, and filmmaking.</p></div>
-            <div className={refined.brochureHeaderActions}><a className={refined.brochureDownload} href={`${ASSETS}/imaginal-brochure.pdf`} download="Imaginal-Brochure.pdf"><RoomIcon name="download" /> Download PDF</a><a href={`${ASSETS}/imaginal-brochure.pdf`} target="_blank" rel="noreferrer">Open PDF <Arrow /></a><button type="button" aria-label="Close brochure preview" onClick={closeView}><span>Close</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 3 10 10 M13 3 3 13" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg></button></div>
+            <div className={refined.brochureHeaderActions}><a className={refined.brochureDownload} href={`${ASSETS}/imaginal-brochure.pdf`} download="Imaginal-Brochure.pdf"><RoomIcon name="download" /> Download PDF</a><a href="https://www.canva.com/design/DAHYwlO9W-4/bSywiULjErv4OyEgyGJ5kg/view" target="_blank" rel="noreferrer">Live in Canva <Arrow /></a><button type="button" aria-label="Close brochure preview" onClick={closeView}><span>Close</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 3 10 10 M13 3 3 13" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" /></svg></button></div>
           </div>
           <BrochurePages />
         </section>}
