@@ -24,9 +24,9 @@ export function BrochurePages() {
   }, [move]);
 
   return <section className={styles.viewer} aria-label="Imaginal brochure">
-    <div className={styles.page}>
+    <button type="button" className={styles.page} aria-label="Turn brochure page" title="Tap to advance" disabled={page === PAGE_COUNT} onClick={() => move(1)}>
       <Image src={`${ASSETS}/brochure-pages/${String(page).padStart(2, "0")}.webp`} alt={`Imaginal brochure, page ${page} of ${PAGE_COUNT}. Download the PDF for selectable text.`} fill unoptimized sizes="100vw" />
-    </div>
+    </button>
     <nav className={styles.controls} aria-label="Brochure pages">
       <button type="button" aria-label="Previous brochure page" disabled={page === 1} onClick={() => move(-1)}><RoomIcon name="arrow-left" /></button>
       <span aria-live="polite">{page} / {PAGE_COUNT}</span>
