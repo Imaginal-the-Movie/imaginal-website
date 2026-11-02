@@ -24,7 +24,10 @@ export function BrochurePages() {
   }, [move]);
 
   return <section className={styles.viewer} aria-label="Imaginal brochure">
-    <button type="button" className={styles.page} aria-label="Turn brochure page" title="Tap to advance" disabled={page === PAGE_COUNT} onClick={() => move(1)}>
+    <button type="button" className={styles.page} aria-label="Turn brochure page" aria-description="Tap the right half to advance or the left half to go back. You can also use the arrow keys." title="Tap right to advance; tap left to go back" onClick={event => {
+      const { left, width } = event.currentTarget.getBoundingClientRect();
+      move(event.detail === 0 || event.clientX >= left + width / 2 ? 1 : -1);
+    }}>
       <Image src={`${ASSETS}/brochure-pages/${String(page).padStart(2, "0")}.webp`} alt={`Imaginal brochure, page ${page} of ${PAGE_COUNT}. Download the PDF for selectable text.`} fill unoptimized sizes="100vw" />
     </button>
     <nav className={styles.controls} aria-label="Brochure pages">
