@@ -33,7 +33,7 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
       <div data-team-grid className={refined.projectTeam}>
         {copy.team.people.map(person => <section key={person.linkedin}>
           <h3><a className={refined.teamNameLink} href={person.linkedin} target="_blank" rel="noopener noreferrer" aria-description="LinkedIn profile; opens in a new tab">{person.name}</a></h3>
-          <span className={refined.teamRole}>{person.role}</span>
+          {person.role && <span className={refined.teamRole}>{person.role}</span>}
           <p>{person.bio}</p>
           <p className={refined.teamCredentials}>{person.credentials.map((credential, index) => <span key={index} className={index === 0 ? refined.teamAffiliation : undefined}>{credential}</span>)}</p>
         </section>)}
