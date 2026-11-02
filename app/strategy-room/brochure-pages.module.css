@@ -1,7 +1,7 @@
 .viewer { display: flex; flex-direction: column; flex: 1; min-height: 0; }
 .page { position: relative; flex: 1; min-height: 0; }
 .page img { object-fit: contain; }
-.controls { display: flex; flex: none; justify-content: center; align-items: center; gap: 24px; min-height: 52px; background: #fff; }
+.controls { display: flex; flex: none; justify-content: center; align-items: center; gap: 24px; min-height: 52px; background: transparent; border-top: 1px solid rgba(255,255,255,.5); }
 .controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; }
 .controls button:disabled { opacity: .25; cursor: default; }
 .controls button:focus-visible { outline: 2px solid #3e5866; outline-offset: -4px; }

@@ -1,4 +1,7 @@
 .revised { --signal-blue: #b1becb; }
+/* The stationary glass layer sits behind the cards, outside their scrolling surfaces. */
+.revised :is(.readingPanel, .brochurePreview) { isolation: isolate; }
+.revised :is(.readingPanel, .brochurePreview)::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: linear-gradient(135deg, rgba(255,255,255,.64), rgba(241,248,249,.3) 48%, rgba(255,255,255,.48)); -webkit-backdrop-filter: blur(14px) saturate(115%); backdrop-filter: blur(14px) saturate(115%); border: 1px solid rgba(255,255,255,.72); box-shadow: inset 0 1px 1px rgba(255,255,255,.8), inset 0 -1px 1px rgba(119,151,165,.12); }
 .revised[data-view] { position: fixed; inset: 0; height: 100dvh; min-height: 0; overflow: clip; }
 .brandMark { position: relative; isolation: isolate; }
 .brandMark::before { content: ""; position: absolute; inset: -22px -28px; z-index: -1; pointer-events: none; background: radial-gradient(ellipse, rgba(255,255,255,.85) 18%, rgba(255,255,255,.55) 48%, transparent 76%); filter: blur(8px); }
@@ -47,9 +50,9 @@
 .revised .brochureLabelTitle { font-family: "TT Firs Neue", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 .brochureLabelNote { font-size: 10px; line-height: 1.15; letter-spacing: .025em; color: #6a7982; }
 .objectStage[inert] .brochureLabel, .revised[data-trailer-invited="true"] .brochureLabel { visibility: hidden; }
-.brochurePreview { --brochure-header: 76px; height: calc(100dvh - 40px); position: fixed; left: 50%; top: 50%; width: min(calc(100vw - 64px), calc((100dvh - 40px - var(--brochure-header)) * 22 / 17)); display: flex; flex-direction: column; transform: translate(-50%, -50%); margin: 0; padding: 0; border: 0; border-radius: 3px; background: #eeefeb; box-shadow: 0 20px 90px rgba(0,0,0,.3); animation: brochureFocus 220ms ease-out both; }
+.brochurePreview { --brochure-header: 76px; height: calc(100dvh - 40px); position: fixed; left: 50%; top: 50%; width: min(calc(100vw - 64px), calc((100dvh - 40px - var(--brochure-header)) * 22 / 17)); display: flex; flex-direction: column; transform: translate(-50%, -50%); margin: 0; padding: 0; border: 0; border-radius: 3px; background: transparent; box-shadow: 0 20px 90px rgba(0,0,0,.22); animation: brochureFocus 220ms ease-out both; }
 @keyframes brochureFocus { from { opacity: 0; } to { opacity: 1; } }
-.brochurePreviewHeader { box-sizing: border-box; height: var(--brochure-header); flex: none; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 22px; background: #fff; border-radius: 3px 3px 0 0; }
+.brochurePreviewHeader { box-sizing: border-box; height: var(--brochure-header); flex: none; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 22px; background: transparent; border-radius: 3px 3px 0 0; border-bottom: 1px solid rgba(255,255,255,.5); }
 .brochurePreview h1 { font-size: 13px; line-height: 1.4; letter-spacing: .1em; font-weight: 400; margin: 0 0 5px; }
 .brochurePreview p { font-size: 12px; line-height: 1.5; color: #647178; margin: 0; }
 .brochureHeaderActions { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
@@ -256,7 +259,7 @@
 .readingShadow { display: none; }
 .projectSurface { --reading-width: 1000px; }
 .planCard, .organizationDialog { font-family: inherit; font-size: 16px; font-weight: 400; }
-.revised .readingPanel { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) 75px; flex: none; width: min(var(--reading-width), 100%); max-width: var(--reading-width); height: 100%; min-height: 0; max-height: 100%; margin: 0; padding: 0; border-radius: 6px; overflow: hidden; background: #f8faf8; backdrop-filter: none; animation: brochureFocus 220ms ease-out both; }
+.revised .readingPanel { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) 75px; flex: none; width: min(var(--reading-width), 100%); max-width: var(--reading-width); height: 100%; min-height: 0; max-height: 100%; margin: 0; padding: 0; border-radius: 6px; overflow: hidden; background: transparent; backdrop-filter: none; animation: brochureFocus 220ms ease-out both; }
 .revised .readingPanel[data-reading-has-edges="true"] { overflow: visible; }
 .revised .readingPanel[data-reading-has-footer="false"] { grid-template-rows: auto minmax(0, 1fr); }
 .readingScroll { min-height: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #aabac3 transparent; scrollbar-gutter: stable; }
