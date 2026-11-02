@@ -271,7 +271,7 @@
 .projectTeam { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 24px; }
 .projectTeam > section { padding-top: 18px; border-top: 1px solid rgba(66,83,92,.14); }
 .projectTeam h3 { font-family: "TT Firs Neue", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 18px; line-height: 1.4; font-weight: 400; color: #354955; margin: 0 0 10px; }
-.teamRole, .teamAffiliation { display: block; font-size: 12px; line-height: 1.65; color: #5b717d; }
+.teamAffiliation { display: block; font-size: 12px; line-height: 1.65; color: #5b717d; }
 .teamAffiliation { margin-top: 2px; }
 .revised .projectTeam p { font-size: 16px; line-height: 1.6; color: #526873; margin: 14px 0 0; }
 .productionColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin: 6px 0 12px; }

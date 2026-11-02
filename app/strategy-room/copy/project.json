@@ -29,10 +29,9 @@
       {
         "name": "Damien “Chase” Foster",
         "linkedin": "https://www.linkedin.com/in/chasehattan/",
-        "role": "Director / Writer / Editor",
+        "affiliation": "Co-Founder of Vyby",
         "bio": "Chase has spent his life helping creators find their creative spark—and building the tools and systems that help them hold onto it.",
         "credentials": [
-          "Co-founder, Vyby",
           "Software engineer, AI agent builder, 3D",
           "20+ years in film and music production",
           "Creative director to top influencers"
@@ -41,10 +40,9 @@
       {
         "name": "Lucy Liu",
         "linkedin": "https://www.linkedin.com/in/glucyliu/",
-        "role": "",
+        "affiliation": "Co-Founder of Vyby",
         "bio": "Lucy builds systems and cultures around conscious participation, helping people feel fully expressed, connected and alive.",
         "credentials": [
-          "Co-founder, Vyby",
           "1st PM / Ex-VP of Product, lifestyle membership FabFitFun (Series A, unicorn)",
           "Ex-Disney gaming & J.P. Morgan IBD"
         ]
@@ -52,16 +50,17 @@
       {
         "name": "Mika Onishi",
         "linkedin": "https://www.linkedin.com/in/mikaonishi/",
-        "role": "",
+        "affiliation": "Co-founder and Chair of the Positive Technology Institute",
         "bio": "Mika works to put technology in service of human sovereignty and collective intelligence, enabling greater human flourishing.",
         "credentials": [
-          "Co-founder and Chair of the Positive Technology Institute",
           "General Partner, PORTAL Venture Partners",
           "Founder, House of Remembering"
         ]
       }
     ],
-    "productionCompany": "Production company: Vyby Productions",
+    "creativeCredit": "Directed, written, and edited by Damien “Chase” Foster",
+    "productionCompany": "Production Company: Vyby Productions",
+    "producers": "Producers: Lucy Liu, Mika Onishi, Damien “Chase” Foster",
     "advisorsLabel": "Advised & supported by the Positive Technology Institute Advisory Board:",
     "advisors": "Tom Kehler, Dr. Karina Alexanyan, Jason Bateman, Sanaz Abravani and Peter Loukianoff"
   },

@@ -33,12 +33,12 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
       <div data-team-grid className={refined.projectTeam}>
         {copy.team.people.map(person => <section key={person.linkedin}>
           <h3><a className={refined.teamNameLink} href={person.linkedin} target="_blank" rel="noopener noreferrer" aria-description="LinkedIn profile; opens in a new tab">{person.name}</a></h3>
-          {person.role && <span className={refined.teamRole}>{person.role}</span>}
+          <span className={refined.teamAffiliation}>{person.affiliation}</span>
           <p>{person.bio}</p>
-          <p className={refined.teamCredentials}>{person.credentials.map((credential, index) => <span key={index} className={index === 0 ? refined.teamAffiliation : undefined}>{credential}</span>)}</p>
+          <p className={refined.teamCredentials}>{person.credentials.map((credential, index) => <span key={index}>{credential}</span>)}</p>
         </section>)}
       </div>
-      <footer className={refined.teamAdvisors}><p>{copy.team.productionCompany}</p><p>{copy.team.advisorsLabel}</p><p>{copy.team.advisors}</p></footer>
+      <footer className={refined.teamAdvisors}><p>{copy.team.creativeCredit}</p><p>{copy.team.productionCompany}</p><p>{copy.team.producers}</p><p>{copy.team.advisorsLabel}</p><p>{copy.team.advisors}</p></footer>
     </article> },
     { label: copy.production.tab, content: <article className={refined.planCard} data-project-beat="production">
       <span className={refined.actCardNumber}>04 / 05</span>
