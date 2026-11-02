@@ -38,7 +38,10 @@ export function ProjectBrief({ onClose, titleRef, entry }: { onClose: () => void
           <p className={refined.teamCredentials}>{person.credentials.map((credential, index) => <span key={index}>{credential}</span>)}</p>
         </section>)}
       </div>
-      <footer className={refined.teamAdvisors}><p>{copy.team.creativeCredit}</p><p>{copy.team.productionCompany}</p><p>{copy.team.producers}</p><p>{copy.team.advisorsLabel}</p><p>{copy.team.advisors}</p></footer>
+      <footer className={refined.teamAdvisors}>
+        <div className={refined.teamFilmCredits}><p>{copy.team.creativeCredit}</p><p>{copy.team.productionCompany}</p><p>{copy.team.producers}</p></div>
+        <p className={refined.teamAdvisoryCredit}>{copy.team.advisorsLabel}<br />{copy.team.advisors}</p>
+      </footer>
     </article> },
     { label: copy.production.tab, content: <article className={refined.planCard} data-project-beat="production">
       <span className={refined.actCardNumber}>04 / 05</span>
