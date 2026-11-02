@@ -68,7 +68,7 @@
      before Safari's toolbar boundary; the panel and text are never masked. */
   .compact [data-reading-shadow] { display: block; position: absolute; inset: 0; height: 100dvh; z-index: -1; pointer-events: none; mask-image: linear-gradient(to bottom, #000 calc(100% - var(--reader-bottom)), transparent calc(100% - 2px)); -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--reader-bottom)), transparent calc(100% - 2px)); }
   .compact [data-reading-shadow]::before { content: ""; position: absolute; inset: var(--reader-top) var(--reader-right) var(--reader-bottom) var(--reader-left); border-radius: 12px; box-shadow: 0 18px 80px rgba(68,85,100,.07); }
-  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 12px; overflow: hidden; box-shadow: none; }
+  .compact[data-view] [data-reading-frame] { width: 100%; max-width: none; min-width: 0; height: 100%; padding: 0 0 58px; box-sizing: border-box; border-radius: 18px; overflow: hidden; box-shadow: none; }
   .compact [data-reading-header] { padding: 18px 20px 0; min-width: 0; }
   .compact [data-reading-header] h1 { margin-bottom: 4px; }
   .compact [data-reading-nav] { display: flex; flex-wrap: nowrap; width: 100%; min-width: 0; gap: 22px; overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; }
