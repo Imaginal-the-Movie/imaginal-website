@@ -29,7 +29,7 @@
       {
         "name": "Damien “Chase” Foster",
         "linkedin": "https://www.linkedin.com/in/chasehattan/",
-        "role": "Director / Writer / Producer",
+        "role": "Director / Writer / Editor / Producer",
         "bio": "Chase has spent his life helping creators find their creative spark—and building the tools and systems that help them hold onto it.",
         "credentials": [
           "Co-founder, Vyby",
@@ -41,7 +41,7 @@
       {
         "name": "Lucy Liu",
         "linkedin": "https://www.linkedin.com/in/glucyliu/",
-        "role": "Production Manager / Associate Producer",
+        "role": "Producer",
         "bio": "Lucy builds systems and cultures around conscious participation, helping people feel fully expressed, connected and alive.",
         "credentials": [
           "Co-founder, Vyby",
@@ -52,7 +52,7 @@
       {
         "name": "Mika Onishi",
         "linkedin": "https://www.linkedin.com/in/mikaonishi/",
-        "role": "Associate Producer",
+        "role": "Producer",
         "bio": "Mika works to put technology in service of human sovereignty and collective intelligence, enabling greater human flourishing.",
         "credentials": [
           "Co-founder and Chair of the Positive Technology Institute",
@@ -61,6 +61,7 @@
         ]
       }
     ],
+    "productionCompany": "Production company: Vyby Productions",
     "advisorsLabel": "Advised & supported by the Positive Technology Institute Advisory Board:",
     "advisors": "Tom Kehler, Dr. Karina Alexanyan, Jason Bateman, Sanaz Abravani and Peter Loukianoff"
   },

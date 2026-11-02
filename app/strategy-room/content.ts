@@ -39,12 +39,12 @@ export const characters = {
     image: `${ASSETS}/lab-source-film.jpg`,
   },
   boyfriend: {
-    name: "The boyfriend",
+    name: "Lucas",
     caption: "Eve’s boyfriend is caught between her and his father, the CEO. As their loyalties pull apart, he must decide what he stands for.",
     image: `${ASSETS}/boyfriend-source-film.jpg`,
   },
   ceo: {
-    name: "The CEO",
+    name: "Richard",
     caption: "Skye’s longtime colleague believes humanity needs someone in control. His pursuit of order threatens the freedom they once built together.",
     label: "The opposing vision",
     description: "Skye’s longtime colleague believes humanity’s future needs a center—and that he should control it.",
