@@ -7,7 +7,7 @@ export const logline = storyCopy.overview.logline;
 export const transmission = [
   { focus: "contact", label: "Contact", text: "I’m Skye Chambers. I’m glad you made it." },
   { focus: "city", label: "2060", text: "I helped build a world where energy is abundant. But even now, someone is trying to control it." },
-  { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve and her AI partner to finish my work. But there’s more at stake than they realize." },
+  { focus: "people", label: "Eve & Robot", text: "I’ve asked my daughter Eve and her robot partner to finish my work. But there’s more at stake than they realize." },
   { focus: "screen", label: "The vision", text: "I have to go. But before I do, there’s something I’d like you to see." },
 ] as const;
 
@@ -23,9 +23,9 @@ export const characters = {
   },
   robot: {
     name: "Robot",
-    caption: "Eve’s AI partner can find answers she cannot. Together, they must discover what neither could create alone.",
+    caption: "Eve’s robot partner can find answers she cannot. Together, they must discover what neither could create alone.",
     label: "A different perspective",
-    description: "Eve’s AI partner brings different abilities and a different perspective. Their discoveries depend on learning to trust what each can bring.",
+    description: "Eve’s robot partner brings different abilities and a different perspective. Their discoveries depend on learning to trust what each can bring.",
     arc: "From supplying answers to becoming a partner in discovering something neither could find alone.",
     image: `${ASSETS}/robot-source-film.jpg`,
   },
