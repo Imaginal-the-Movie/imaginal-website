@@ -109,7 +109,7 @@
   .compact [data-character-close] { position: absolute; display: grid; place-items: center; right: 0; top: 0; width: 40px; height: 40px; font-size: 24px; z-index: 20; pointer-events: auto; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-selected="true"] { position: static; transform: none; width: auto; height: auto; }
   .compact [data-character-map] [data-selected="true"] > button { position: absolute; left: calc(50% - var(--character-hero-height) / 3); top: 8px; width: calc(var(--character-hero-height) * 2 / 3); height: var(--character-hero-height); transform: none; z-index: 10; }
-  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot]:not([data-selected="true"]) { bottom: auto; height: 130px; width: 86px; transform: none; }
+  .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot]:not([data-selected="true"]) { bottom: auto; transform: none; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="1"] { left: 0; top: calc(var(--character-hero-height) * .53); width: 54px; height: 81px; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="2"] { left: 2%; top: calc(var(--character-hero-height) * .24); width: 48px; height: 72px; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="3"] { left: 12%; top: 0; width: 44px; height: 66px; }
@@ -117,7 +117,7 @@
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="5"] { left: auto; right: 2%; top: calc(var(--character-hero-height) * .24); width: 48px; height: 72px; }
   .compact[data-view="room"] [data-character-map][data-has-selection="true"] [data-orbit-slot="6"] { left: auto; right: 0; top: calc(var(--character-hero-height) * .53); width: 54px; height: 81px; }
   .compact [data-character-map] [data-orbit-slot]:not([data-selected="true"]) > button { height: 100%; }
-  .compact [data-character-detail] { position: absolute; left: 0; right: 0; top: var(--character-detail-top); bottom: auto; max-height: calc(100% - var(--character-detail-top) - 64px); width: auto; margin: 0; padding: 14px; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; border: 1px solid rgba(217,229,234,.8); border-radius: 8px; background: rgba(251,253,251,.88); backdrop-filter: blur(18px); }
+  .compact [data-character-detail] { position: absolute; left: 0; right: 0; top: var(--character-detail-top); bottom: auto; max-height: calc(100% - var(--character-detail-top) - 64px); width: auto; margin: 0; padding: 14px; transform: none; text-align: left; overflow-y: auto; overscroll-behavior: contain; box-sizing: border-box; border: 1px solid rgba(217,229,234,.8); border-radius: 8px; background: #fbfdfb; }
   .compact [data-character-detail]::before { display: none; }
   .compact [data-character-detail] h2 { font-size: 22px; margin-bottom: 8px; }
   .compact [data-character-detail] p { font-size: 16px; line-height: 1.5; }

@@ -31,7 +31,7 @@ export function CharacterProjection({ kind }: { kind: Character }) {
   const solidId = `ring-solid-${kind}-${uid}`;
   const fadeId = `bust-fade-${kind}-${uid}`;
   const fadeGradientId = `bust-gradient-${kind}-${uid}`;
-  const source = `/strategy-room/busts-v2/${kind === "eve" ? "eve-v3" : kind}.png`;
+  const source = `/strategy-room/busts-v2/${kind === "eve" ? "eve-v3" : kind}.webp`;
   return <svg className={`${styles.portrait} ${styles.generatedPortrait}`} viewBox="0 0 1024 1536" aria-hidden="true">
     <defs>
       <mask id={maskId} style={{ maskType: "alpha" }} x="0" y="0" width="1024" height="1536" maskUnits="userSpaceOnUse">
@@ -96,13 +96,13 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
         <button
         type="button"
         data-character={key}
-        className={`${styles.bustButton} ${active === key || selected === key ? styles.bustActive : ""}`}
+        className={`${styles.bustButton} ${(selected ? selected === key : active === key) ? styles.bustActive : ""}`}
         aria-label={`Meet ${characters[key].name}`}
         aria-expanded={selected === key}
         aria-controls={selected === key ? `character-detail-${key}` : undefined}
-        onPointerEnter={event => { if (event.pointerType === "mouse") onPreview(key); }}
+        onPointerEnter={event => { if (event.pointerType === "mouse" && !selected) onPreview(key); }}
         onPointerLeave={() => onPreview(null)}
-        onFocus={() => onPreview(key)}
+        onFocus={() => { if (!selected) onPreview(key); }}
         onBlur={() => onPreview(null)}
         onClick={() => selected === key ? cycleCharacter(1, true) : onSelect(key)}
       >

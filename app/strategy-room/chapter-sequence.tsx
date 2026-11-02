@@ -20,19 +20,17 @@ type ChapterSequenceProps = {
 
 export function ChapterSequence({ variant, title, titleRef, onClose, chapters, initialIndex = 0, resetKey, onComplete, completeLabel }: ChapterSequenceProps) {
   const [step, setStep] = useState(initialIndex);
-  const [direction, setDirection] = useState(1);
   const reader = useRef<HTMLDivElement>(null);
   const navigation = useRef<HTMLElement>(null);
   const last = chapters.length - 1;
   const goTo = useCallback((next: number) => {
     const target = Math.max(0, Math.min(last, next));
-    setDirection(target >= step ? 1 : -1);
     setStep(target);
-  }, [last, step]);
+  }, [last]);
   const forward = useCallback(() => { if (step === last) onComplete?.(); else goTo(step + 1); }, [goTo, last, onComplete, step]);
   const swipe = useSwipeNavigation(forward, () => goTo(step - 1));
 
-  useEffect(() => { setStep(initialIndex); setDirection(1); }, [initialIndex, resetKey]);
+  useEffect(() => { setStep(initialIndex); }, [initialIndex, resetKey]);
   useEffect(() => { reader.current?.scrollTo({ top: 0 }); }, [step, resetKey]);
   useEffect(() => {
     const nav = navigation.current;
@@ -69,7 +67,7 @@ export function ChapterSequence({ variant, title, titleRef, onClose, chapters, i
   >
     <div {...swipe} className={refined.storyDeck} data-chapter-deck data-story-deck={variant === "story" || undefined}>
       {step > 0 && <button type="button" className={`${refined.actPeek} ${refined.actPeekPrevious}`} aria-label={`Go to ${chapters[step - 1].label}`} onClick={() => goTo(step - 1)}><span>{chapters[step - 1].label}</span></button>}
-      <div key={step} ref={reader} data-reading-scroll data-active-chapter={step} tabIndex={0} className={`${refined.actCard} ${refined.readingScroll}`} data-direction={direction} id={contentId}>
+      <div key={step} ref={reader} data-reading-scroll data-active-chapter={step} tabIndex={0} className={`${refined.actCard} ${refined.readingScroll}`} id={contentId}>
         {chapters[step].content}
       </div>
       {hasNext && <button type="button" className={`${refined.actPeek} ${refined.actPeekNext}`} aria-label={`Go to ${nextLabel}`} onClick={forward}><span>{nextLabel}</span></button>}

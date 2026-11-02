@@ -54,12 +54,12 @@ export const characters = {
   phoenix: {
     name: "Phoenix",
     caption: "A celebrated inventor and reigning tournament champion, Phoenix has turned her brilliance into an empire of influence. To Eve, she embodies the recognition she hopes will prove her worth.",
-    image: `${ASSETS}/busts-v2/phoenix.png`,
+    image: `${ASSETS}/busts-v2/phoenix.webp`,
   },
   jason: {
     name: "Jason",
     caption: "Skye’s husband and Eve’s father answers her distress call and infiltrates Richard’s laboratory. Even as he discovers the truth about Skye and Richard’s past, he must work with her to keep humanity alive.",
-    image: `${ASSETS}/busts-v2/jason.png`,
+    image: `${ASSETS}/busts-v2/jason.webp`,
   },
 };
 

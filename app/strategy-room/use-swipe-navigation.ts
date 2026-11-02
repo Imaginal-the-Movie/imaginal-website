@@ -11,6 +11,13 @@ export function useSwipeNavigation(next: () => void, previous: () => void) {
       start.current = { x: event.clientX, y: event.clientY };
     },
     onPointerCancel() { start.current = null; },
+    onPointerMove(event: PointerEvent<HTMLElement>) {
+      const origin = start.current;
+      if (!origin) return;
+      // Once a gesture starts as a vertical scroll, never turn it into a chapter swipe.
+      const dx = Math.abs(event.clientX - origin.x), dy = Math.abs(event.clientY - origin.y);
+      if (dy > 12 && dy > dx) start.current = null;
+    },
     onPointerUp(event: PointerEvent<HTMLElement>) {
       const origin = start.current;
       start.current = null;

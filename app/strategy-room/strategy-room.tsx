@@ -90,17 +90,29 @@ export function StrategyRoom() {
     const footer = roomFooter.current;
     if (!header || !footer) return;
     // Anchor reading panels between the actual navigation and footer credits.
+    let frame = 0;
     const measureEdges = () => {
-      room.current?.style.setProperty("--room-header-height", `${header.getBoundingClientRect().height}px`);
-      room.current?.style.setProperty("--room-footer-inset", `${window.innerHeight - footer.getBoundingClientRect().top}px`);
+      const style = room.current?.style;
+      if (!style) return;
+      const edges = {
+        "--room-header-height": `${Math.round(header.getBoundingClientRect().height)}px`,
+        "--room-footer-inset": `${Math.max(0, Math.round(window.innerHeight - footer.getBoundingClientRect().top))}px`,
+      };
+      for (const [name, value] of Object.entries(edges)) {
+        if (style.getPropertyValue(name) !== value) style.setProperty(name, value);
+      }
+    };
+    const scheduleMeasure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measureEdges);
     };
     measureEdges();
-    const observer = new ResizeObserver(measureEdges);
+    const observer = new ResizeObserver(scheduleMeasure);
     observer.observe(header);
     observer.observe(footer);
-    window.addEventListener("resize", measureEdges);
-    window.visualViewport?.addEventListener("resize", measureEdges);
-    return () => { observer.disconnect(); window.removeEventListener("resize", measureEdges); window.visualViewport?.removeEventListener("resize", measureEdges); };
+    window.addEventListener("resize", scheduleMeasure);
+    window.visualViewport?.addEventListener("resize", scheduleMeasure);
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); window.removeEventListener("resize", scheduleMeasure); window.visualViewport?.removeEventListener("resize", scheduleMeasure); };
   }, []);
 
   useEffect(() => {
@@ -147,7 +159,7 @@ export function StrategyRoom() {
       <a href="#room-content" className={styles.skipLink}>Skip to content</a>
       <div className={styles.environment} data-room-environment aria-hidden="true">
         <div className={styles.scene} data-room-scene="true">
-          <Image src={`${ASSETS}/room-neutral-v4.png`} alt="" fill sizes="100vw" unoptimized preload className={styles.roomImage} />
+          <Image src={`${ASSETS}/room-neutral-v4.webp`} alt="" fill sizes="100vw" unoptimized preload className={styles.roomImage} />
           <div className={styles.daylight} />
           {view === "transmission" && <TransmissionDebris />}
           <div className={styles.atoms}>
@@ -168,17 +180,17 @@ export function StrategyRoom() {
         {trailerInvited && <button type="button" className={refined.handoffBack} data-trailer-return data-room-object onClick={closeView}><RoomIcon name="arrow-left" /> Back to room</button>}
         <CharacterFolio open={mapOpen} inactive={trailerInvited} onOpen={() => { setTrailerInvited(false); setMapOpen(true); setPinnedCharacter("skye"); setHoveredCharacter(null); }} />
         <button data-story-object className={refined.storySphere} disabled={trailerInvited} aria-label="Explore the story" onClick={() => openView("story")}>
-          <Image src={`${ASSETS}/objects/story-sphere-v1.png`} alt="" fill sizes="13vw" unoptimized className={refined.objectImage} />
+          <Image src={`${ASSETS}/objects/story-sphere-v1.webp`} alt="" fill sizes="13vw" unoptimized className={refined.objectImage} />
           <span className={`${refined.objectCaption} ${refined.sphereCaption}`}>THE STORY<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span>
         </button>
         <button data-project-object className={refined.projectSlab} disabled={trailerInvited} aria-label="Explore the project" onClick={() => openView("project")}>
-          <Image src={`${ASSETS}/objects/project-slab-v1.png`} alt="" fill sizes="47vw" unoptimized className={refined.objectImage} />
+          <Image src={`${ASSETS}/objects/project-slab-v1.webp`} alt="" fill sizes="47vw" unoptimized className={refined.objectImage} />
           <span className={`${refined.objectCaption} ${refined.projectCaption}`}>THE PROJECT<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span>
         </button>
         <button className={refined.brochureObject} data-brochure-object data-brochure-hovered={brochureHovered && objectsActive && !trailerInvited} disabled={trailerInvited} aria-label="Preview the brochure" onPointerEnter={() => setBrochureHovered(true)} onPointerLeave={() => setBrochureHovered(false)} onFocus={() => setBrochureHovered(true)} onBlur={() => setBrochureHovered(false)} onClick={() => openView("brochure")}>
           <span className={refined.brochurePaper}>
-            <span className={refined.brochureInner}><svg viewBox="0 0 254 393" aria-hidden="true"><image href={`${ASSETS}/brochure-cover-thumbnail.png`} x="-254" width="508" height="393" /></svg></span>
-            <span className={refined.brochureCover} data-brochure-cover><svg viewBox="0 0 254 393" aria-hidden="true"><image href={`${ASSETS}/brochure-cover-thumbnail.png`} width="508" height="393" /></svg></span>
+            <span className={refined.brochureInner}><svg viewBox="0 0 254 393" aria-hidden="true"><image href={`${ASSETS}/brochure-cover-thumbnail.webp`} x="-254" width="508" height="393" /></svg></span>
+            <span className={refined.brochureCover} data-brochure-cover><svg viewBox="0 0 254 393" aria-hidden="true"><image href={`${ASSETS}/brochure-cover-thumbnail.webp`} width="508" height="393" /></svg></span>
           </span>
         </button>
         <button className={refined.brochureLabel} data-brochure-label disabled={trailerInvited} aria-label="Open detailed brochure" onPointerEnter={() => setBrochureHovered(true)} onPointerLeave={() => setBrochureHovered(false)} onFocus={() => setBrochureHovered(true)} onBlur={() => setBrochureHovered(false)} onClick={() => openView("brochure")}>
@@ -186,14 +198,14 @@ export function StrategyRoom() {
           <span className={refined.brochureLabelNote}>(Optional)</span>
         </button>
         <button data-transmission-object className={refined.butterflyObject} disabled={trailerInvited} onClick={openTransmission} aria-label="Open Skye’s transmission">
-          <Image src={`${ASSETS}/objects/transmission-butterfly-v2.png`} alt="" fill sizes="20vw" unoptimized className={refined.objectImage} />
+          <Image src={`${ASSETS}/objects/transmission-butterfly-v2.webp`} alt="" fill sizes="20vw" unoptimized className={refined.objectImage} />
           <span className={refined.butterflyCaption}><span className={styles.signal} aria-hidden="true">{Array.from({ length: 17 }, (_, i) => <i key={i} style={{ height: `${3 + (8 - Math.abs(8 - i)) * 1.8}px` }} />)}</span><span className={refined.objectCaption}>INCOMING TRANSMISSION / SKYE<RoomIcon name="arrow-up-right" className={refined.objectCaptionArrow} /></span></span>
         </button>
       </div>
 
       {menuOpen && <button type="button" data-room-menu-backdrop className={mobile.menuBackdrop} aria-label="Dismiss navigation" tabIndex={-1} onClick={() => setMenuOpen(false)} />}
       <header ref={roomHeader} data-room-header className={styles.header} inert={view === "trailer" || view === "brochure"}>
-        <button data-room-brand className={`${styles.brand} ${refined.brandMark}`} onClick={closeView} aria-label="Imaginal, back to the strategy room"><span data-room-logo className={refined.brandLogo}><Image src={`${ASSETS}/imaginal-logo-transparent-v1.png`} alt="Imaginal" width={2170} height={725} unoptimized preload /></span><span>2060 / THE STRATEGY ROOM</span></button>
+        <button data-room-brand className={`${styles.brand} ${refined.brandMark}`} onClick={closeView} aria-label="Imaginal, back to the strategy room"><span data-room-logo className={refined.brandLogo}><Image src={`${ASSETS}/imaginal-logo-transparent-v1.webp`} alt="Imaginal" width={2170} height={725} unoptimized preload /></span><span>2060 / THE STRATEGY ROOM</span></button>
         <button ref={menuButton} type="button" data-room-menu className={mobile.menuButton} aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="room-navigation" onKeyDown={event => {
           if (!menuOpen || event.key !== "Tab") return;
           const items = menu.current?.querySelectorAll<HTMLButtonElement>("button");
