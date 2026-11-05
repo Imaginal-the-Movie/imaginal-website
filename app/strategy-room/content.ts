@@ -15,7 +15,7 @@ export const characters = {
   eve: {
     name: "Eve",
     fullName: "Eve Chambers",
-    caption: "A young scientist takes up her mother’s unfinished research. To find her own way forward, she must learn to trust what she can bring.",
+    caption: "A gifted young scientist, Eve wants to make a name for herself while navigating an unstable invention, accusations of favoritism, and a tournament rival she can’t stand. An unlikely partnership with Robot and a devastating tournament loss to Phoenix help her solve a problem even her famous mother, Skye, couldn’t solve.",
     label: "The unfinished work",
     description: "A young scientist carrying work her mother could not finish, Eve must discover what she can contribute on her own terms.",
     arc: "From living in her mother’s shadow to trusting her own creative judgment.",
@@ -23,7 +23,7 @@ export const characters = {
   },
   robot: {
     name: "Robot",
-    caption: "Eve’s robot partner can find answers she cannot. Together, they must discover what neither could create alone.",
+    caption: "An SI humanoid Skye gives to Eve, Robot unsettles her at first with how human he looks. Their bond deepens as they come to appreciate their differences and learn to rely on each other.",
     label: "A different perspective",
     description: "Eve’s robot partner brings different abilities and a different perspective. Their discoveries depend on learning to trust what each can bring.",
     arc: "From supplying answers to becoming a partner in discovering something neither could find alone.",
@@ -32,7 +32,7 @@ export const characters = {
   skye: {
     name: "Skye",
     fullName: "Skye Chambers",
-    caption: "The scientist who helped make energy abundant now fights to keep its future open. Her hardest task is trusting her daughter to carry the work forward.",
+    caption: "Eve’s mother and renowned scientist behind the coveted Post Select Energy Generator, Skye helped make energy abundant. Now she must fight to keep her boss, Richard, from centralizing their work, while trusting her daughter to carry it forward.",
     label: "The pioneer",
     description: "Eve’s mother helped give the world abundant energy. Now she is fighting to keep its future open.",
     arc: "From trying to protect everything she built to trusting what her daughter might create.",
@@ -40,12 +40,12 @@ export const characters = {
   },
   boyfriend: {
     name: "Lucas",
-    caption: "Eve’s boyfriend is caught between her and his father, the CEO. As their loyalties pull apart, he must decide what he stands for.",
+    caption: "Eve’s boyfriend and Richard’s ambitious son, Lucas is torn between the two people he loves. He dismisses Robot at first, then risks his life to save him. When someone he respects kills his father, Lucas hides his grief from Eve, setting him on the path to becoming the sequel’s villain.",
     image: `${ASSETS}/boyfriend-source-film.jpg`,
   },
   ceo: {
     name: "Richard",
-    caption: "Skye’s longtime colleague believes humanity needs someone in control. His pursuit of order threatens the freedom they once built together.",
+    caption: "Skye’s boss, Lucas’s father, and the film’s antagonist, Richard believes civilization is safest under his control. His plans to centralize power and his exploitation of a captive creature turn his promise of protection into a threat to humanity’s survival.",
     label: "The opposing vision",
     description: "Skye’s longtime colleague believes humanity’s future needs a center—and that he should control it.",
     arc: "His pursuit of order becomes a struggle to own the future he once helped build.",
@@ -53,7 +53,7 @@ export const characters = {
   },
   phoenix: {
     name: "Phoenix",
-    caption: "A celebrated inventor and reigning tournament champion, Phoenix has turned her brilliance into an empire of influence. To Eve, she embodies the recognition she hopes will prove her worth.",
+    caption: "A brilliant inventor, celebrated socialite, and reigning tournament champion, Phoenix defends her title and her place in the spotlight when Eve challenges her. After defeating Eve in the tournament, Phoenix joins Eve’s global effort to fight a threat far greater than their rivalry.",
     image: `${ASSETS}/busts-v2/phoenix.webp`,
   },
   jason: {
