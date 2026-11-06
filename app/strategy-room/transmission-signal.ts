@@ -1,27 +1,3 @@
-// Browser-only sounds: each short cue releases its context after playback.
-function playCue(render: (context: AudioContext, done: () => void) => void) {
-  try {
-    const context = new AudioContext();
-    let deadline: number;
-    const done = () => { window.clearTimeout(deadline); void context.close().catch(() => {}); };
-    deadline = window.setTimeout(done, 1800);
-    const start = () => { if (context.state !== "closed") render(context, done); };
-    if (context.state === "suspended") void context.resume().then(start).catch(done);
-    else start();
-  } catch {
-    // Sound support must never prevent the transmission from opening/advancing.
-  }
-}
-
-function noise(context: AudioContext, duration: number) {
-  const buffer = context.createBuffer(1, Math.ceil(context.sampleRate * duration), context.sampleRate);
-  const samples = buffer.getChannelData(0);
-  for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
-  const source = context.createBufferSource();
-  source.buffer = buffer;
-  return source;
-}
-
 const signalUrl = "/strategy-room/audio/incoming-transmission-elevenlabs-v1.mp3";
 let openingSignal: HTMLAudioElement | null = null;
 
@@ -54,61 +30,84 @@ export function playTransmissionSignal() {
   }
 }
 
-// Low-frequency tremor with irregular, damped crumble rather than a glass chime.
-export function playTransmissionImpact() {
+const impactUrl = "/strategy-room/audio/transmission-radar.mp3";
+
+let impact: {
+  context: AudioContext;
+  request: AbortController;
+  audio: Promise<AudioBuffer | null>;
+  clearBlur?: () => void;
+} | null = null;
+
+export function prepareTransmissionImpact() {
+  if (impact) return;
+  try {
+    // Unlock audio during the opening gesture so the timed beat can play it later.
+    const context = new AudioContext();
+    const request = new AbortController();
+    const audio = Promise.all([
+      context.resume(),
+      fetch(impactUrl, { signal: request.signal }).then(response => {
+        if (!response.ok) throw new Error("Transmission audio unavailable");
+        return response.arrayBuffer();
+      }).then(bytes => context.decodeAudioData(bytes)),
+    ]).then(([, buffer]) => buffer).catch(() => null);
+    impact = { context, request, audio };
+  } catch {
+    // The transmission can continue without audio.
+  }
+}
+
+export function stopTransmissionImpact() {
+  if (!impact) return;
+  const playback = impact;
+  impact = null;
+  playback.request.abort();
+  playback.clearBlur?.();
+  void playback.context.close().catch(() => {});
+}
+
+export function playTransmissionImpact(overlay: HTMLDivElement | null) {
   stopTransmissionSignal();
-  playCue((context, done) => {
-    const start = context.currentTime;
-    const tremor = noise(context, 1.16);
-    const low = context.createBiquadFilter();
-    const subsonic = context.createBiquadFilter();
-    const tremorLevel = context.createGain();
-    low.type = "lowpass";
-    low.frequency.value = 150;
-    subsonic.type = "highpass";
-    subsonic.frequency.value = 28;
-    tremorLevel.gain.setValueAtTime(0, start);
-    tremorLevel.gain.linearRampToValueAtTime(0.9, start + 0.025);
-    tremorLevel.gain.linearRampToValueAtTime(0.65, start + 0.35);
-    tremorLevel.gain.exponentialRampToValueAtTime(0.0001, start + 1.15);
-    tremor.connect(low).connect(subsonic).connect(tremorLevel).connect(context.destination);
-    tremor.onended = done;
-    tremor.start(start);
+  const playback = impact;
+  if (!playback) return;
+  void playback.audio.then(buffer => {
+    if (!buffer || impact !== playback) return;
+    const { context } = playback;
+    const source = context.createBufferSource();
+    const gain = context.createGain();
+    source.buffer = buffer;
+    gain.gain.value = 0.65;
+    gain.connect(context.destination);
 
-    [42, 56].forEach((frequency, index) => {
-      const body = context.createOscillator();
-      const level = context.createGain();
-      body.frequency.value = frequency;
-      level.gain.setValueAtTime(0, start);
-      level.gain.linearRampToValueAtTime(index ? 0.035 : 0.08, start + 0.025);
-      level.gain.exponentialRampToValueAtTime(0.0001, start + 1.05);
-      body.connect(level).connect(context.destination);
-      body.start(start);
-      body.stop(start + 1.1);
-    });
+    if (overlay && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const analyser = context.createAnalyser();
+      analyser.fftSize = 1024;
+      source.connect(analyser).connect(gain);
+      const samples = new Float32Array(analyser.fftSize);
+      let frame = 0;
+      let blur = 0;
+      let previous = performance.now();
+      const updateBlur = (now: number) => {
+        analyser.getFloatTimeDomainData(samples);
+        const rms = Math.sqrt(samples.reduce((sum, sample) => sum + sample * sample, 0) / samples.length);
+        const target = Math.min(10, Math.max(0, (rms - 0.012) * 36));
+        // Follow the onset closely and smooth the radar's quieter tail.
+        blur += (target - blur) * (1 - Math.exp(-(now - previous) / (target > blur ? 30 : 140)));
+        overlay.style.setProperty("--impact-blur", blur >= 0.12 ? `blur(${blur.toFixed(2)}px)` : "none");
+        previous = now;
+        frame = requestAnimationFrame(updateBlur);
+      };
+      playback.clearBlur = () => {
+        cancelAnimationFrame(frame);
+        overlay.style.removeProperty("--impact-blur");
+      };
+      frame = requestAnimationFrame(updateBlur);
+    } else {
+      source.connect(gain);
+    }
 
-    const crumble = noise(context, 0.92);
-    const muffler = context.createBiquadFilter();
-    const crumbleLevel = context.createGain();
-    muffler.type = "lowpass";
-    muffler.frequency.value = 700;
-    crumbleLevel.gain.setValueAtTime(0, start);
-    crumbleLevel.gain.linearRampToValueAtTime(0.23, start + 0.02);
-    crumbleLevel.gain.exponentialRampToValueAtTime(0.0001, start + 0.9);
-    crumble.connect(muffler).connect(crumbleLevel).connect(context.destination);
-    crumble.start(start);
-    [0.04, 0.09, 0.17, 0.26, 0.31, 0.43, 0.54, 0.68, 0.79].forEach((offset, index) => {
-      const fragment = noise(context, 0.1);
-      const grit = context.createBiquadFilter();
-      const level = context.createGain();
-      const at = start + offset;
-      grit.type = "lowpass";
-      grit.frequency.value = 950 + index % 3 * 230;
-      level.gain.setValueAtTime(0, at);
-      level.gain.linearRampToValueAtTime(0.13 - index * 0.01, at + 0.005);
-      level.gain.exponentialRampToValueAtTime(0.0001, at + 0.09);
-      fragment.connect(grit).connect(level).connect(context.destination);
-      fragment.start(at);
-    });
-  });
+    source.onended = () => { if (impact === playback) stopTransmissionImpact(); };
+    source.start();
+  }).catch(() => { if (impact === playback) stopTransmissionImpact(); });
 }

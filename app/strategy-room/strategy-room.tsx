@@ -8,8 +8,7 @@ import { TabletopCharacters, type Character } from "./character-projections";
 import { CharacterFolio } from "./character-folio";
 import { CollaborationDialog } from "./organization-details";
 import { Transmission } from "./transmission";
-import { TransmissionDebris } from "./transmission-debris";
-import { playTransmissionSignal, prepareTransmissionSignal, stopTransmissionSignal } from "./transmission-signal";
+import { playTransmissionImpact, playTransmissionSignal, prepareTransmissionImpact, prepareTransmissionSignal, stopTransmissionImpact, stopTransmissionSignal } from "./transmission-signal";
 import { Trailer } from "./trailer";
 import { BrochurePages } from "./brochure-pages";
 import { LayoutDiagnostics } from "./layout-diagnostics";
@@ -44,6 +43,7 @@ export function StrategyRoom() {
   const roomFooter = useRef<HTMLElement>(null);
   const collaborationDialog = useRef<HTMLDialogElement>(null);
   const foreground = useRef<HTMLDivElement>(null);
+  const impactOverlay = useRef<HTMLDivElement>(null);
   const panelTitle = useRef<HTMLHeadingElement>(null);
   const lastTrigger = useRef<HTMLElement | null>(null);
   const theaterPlay = useRef<HTMLButtonElement>(null);
@@ -76,7 +76,10 @@ export function StrategyRoom() {
 
   useEffect(() => {
     prepareTransmissionSignal();
-    return stopTransmissionSignal;
+    return () => {
+      stopTransmissionSignal();
+      stopTransmissionImpact();
+    };
   }, []);
 
   useEffect(() => {
@@ -88,7 +91,10 @@ export function StrategyRoom() {
   }, []);
 
   useEffect(() => {
-    if (view !== "transmission") stopTransmissionSignal();
+    if (view !== "transmission") {
+      stopTransmissionSignal();
+      stopTransmissionImpact();
+    }
     foreground.current?.scrollTo({ top: 0 });
     if (view !== "room") panelTitle.current?.focus({ preventScroll: true });
   }, [view]);
@@ -142,7 +148,13 @@ export function StrategyRoom() {
     return () => media.removeEventListener("change", reset);
   }, []);
 
-  const openTransmission = () => { playTransmissionSignal(); setBeat(0); openView("transmission"); };
+  const openTransmission = () => {
+    prepareTransmissionImpact();
+    playTransmissionSignal();
+    setBeat(0);
+    openView("transmission");
+  };
+  const onTransmissionImpact = useCallback(() => playTransmissionImpact(impactOverlay.current), []);
   const contact = () => { openView("project"); setProjectEntry(entry => ({ section: "contact", revision: entry.revision + 1 })); };
   const activeCharacter = hoveredCharacter ?? pinnedCharacter;
   const isStory = view === "story";
@@ -170,7 +182,6 @@ export function StrategyRoom() {
         <div className={styles.scene} data-room-scene="true">
           <Image src={`${ASSETS}/room-neutral-v4.webp`} alt="" fill sizes="100vw" unoptimized preload className={styles.roomImage} />
           <div className={styles.daylight} />
-          {view === "transmission" && <TransmissionDebris />}
           <div className={styles.atoms}>
             {Array.from({ length: 22 }, (_, i) => <i key={i} style={{ left: `${(i * 41 + 9) % 100}%`, top: `${(i * 23 + 13) % 100}%`, animationDelay: `${-i * 0.7}s` }} />)}
           </div>
@@ -246,7 +257,7 @@ export function StrategyRoom() {
           </div>
         </section>}
 
-        {view === "transmission" && <Transmission beat={beat} onBeat={setBeat} onComplete={() => { closeView(); setTrailerInvited(true); requestAnimationFrame(() => theaterPlay.current?.focus({ preventScroll: true })); }} onDismiss={closeView} />}
+        {view === "transmission" && <Transmission beat={beat} onBeat={setBeat} onImpact={onTransmissionImpact} onComplete={() => { closeView(); setTrailerInvited(true); requestAnimationFrame(() => theaterPlay.current?.focus({ preventScroll: true })); }} onDismiss={closeView} />}
 
         {view === "trailer" && <Trailer onClose={closeView} initialTime={trailerTime.current} onRememberTime={rememberTrailerTime} />}
 
@@ -265,6 +276,7 @@ export function StrategyRoom() {
 
       <CollaborationDialog dialog={collaborationDialog} />
       <footer ref={roomFooter} data-room-credits className={`${styles.footer} ${refined.roomCredits}`}><button type="button" aria-label="About the Vyby and PTI collaboration" aria-haspopup="dialog" onClick={() => collaborationDialog.current?.showModal()}>VYBY × POSITIVE TECHNOLOGY INSTITUTE</button></footer>
+      {view === "transmission" && <div ref={impactOverlay} className={refined.transmissionImpact} aria-hidden="true" />}
       {process.env.NODE_ENV === "development" && <LayoutDiagnostics />}
     </main>
   );
