@@ -55,7 +55,8 @@ export function CharacterProjection({ kind }: { kind: Character }) {
   </svg>;
 }
 
-export function TabletopCharacters({ active, selected, onPreview, onSelect, onClose }: {
+export function TabletopCharacters({ open, active, selected, onPreview, onSelect, onClose }: {
+  open: boolean;
   active: Character | null;
   selected: Character | null;
   onPreview: (character: Character | null) => void;
@@ -64,21 +65,15 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
 }) {
   const selectedIndex = selected ? characterOrder.indexOf(selected) : 0;
   const nextButton = useRef<HTMLButtonElement>(null);
-  const keepCycleFocus = useRef(false);
-  useEffect(() => {
-    if (keepCycleFocus.current) {
-      nextButton.current?.focus({ preventScroll: true });
-      keepCycleFocus.current = false;
-    }
-  }, [selected]);
   const cycleCharacter = useCallback((direction: number, retainFocus = false) => {
     const current = selected ? characterOrder.indexOf(selected) : direction > 0 ? -1 : 0;
-    keepCycleFocus.current = retainFocus || document.activeElement === nextButton.current;
     onPreview(null);
     onSelect(characterOrder[(current + direction + characterOrder.length) % characterOrder.length]);
+    if (retainFocus) nextButton.current?.focus({ preventScroll: true });
   }, [selected, onPreview, onSelect]);
   const swipe = useSwipeNavigation(() => cycleCharacter(1), () => cycleCharacter(-1));
   useEffect(() => {
+    if (!open) return;
     const cycleWithArrows = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       if (event.target instanceof Element && event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
@@ -88,7 +83,7 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
     };
     window.addEventListener("keydown", cycleWithArrows);
     return () => window.removeEventListener("keydown", cycleWithArrows);
-  }, [cycleCharacter]);
+  }, [cycleCharacter, open]);
   return <div {...swipe} id="character-map" data-character-map data-room-object data-has-selection={selected ? "true" : undefined} className={styles.tabletopCharacters} role="group" aria-label="Character holograms on the strategy table">
     <button type="button" data-character-close aria-label="Close characters" onClick={onClose}>×</button>
     <div className={styles.busts} data-character-orbit>
@@ -111,16 +106,16 @@ export function TabletopCharacters({ active, selected, onPreview, onSelect, onCl
         <span className={styles.bustName}>{characters[key].name}</span>
       </button>
       {selected === key && <aside id={`character-detail-${key}`} data-character-detail data-room-object className={styles.characterDetail} aria-label={`${fullName(key)} character introduction`}>
-        <h2>{fullName(key)}</h2><p>{characters[key].caption}</p>
-        <span className={styles.characterNextCue} aria-hidden="true">Next character <RoomIcon name="arrow-right" /></span>
-        <button ref={nextButton} type="button" className={styles.characterNext} aria-label="Next character" onClick={() => cycleCharacter(1, true)} />
+        <div className={styles.characterBio} tabIndex={0}>
+          <h2>{fullName(key)}</h2><p>{characters[key].caption}</p>
+        </div>
       </aside>}
       </div>)}
     </div>
     <div data-character-controls>
       <button type="button" aria-label="Previous character" onClick={() => cycleCharacter(-1)}><RoomIcon name="arrow-left" /></button>
       <span aria-live="polite">{selected ? characters[selected].name : "Characters"} · {selectedIndex + 1} / {characterOrder.length}</span>
-      <button type="button" aria-label="Next character" onClick={() => cycleCharacter(1)}><RoomIcon name="arrow-right" /></button>
+      <button ref={nextButton} type="button" aria-label="Next character" onClick={() => cycleCharacter(1)}><RoomIcon name="arrow-right" /></button>
     </div>
   </div>;
 }

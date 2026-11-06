@@ -28,6 +28,7 @@ function Arrow() {
 export function StrategyRoom() {
   const [view, setView] = useState<View>("room");
   const [mapOpen, setMapOpen] = useState(false);
+  const [portraitsMounted, setPortraitsMounted] = useState(false);
   const [pinnedCharacter, setPinnedCharacter] = useState<Character | null>(null);
   const [hoveredCharacter, setHoveredCharacter] = useState<Character | null>(null);
   const [beat, setBeat] = useState(0);
@@ -76,6 +77,14 @@ export function StrategyRoom() {
   useEffect(() => {
     prepareTransmissionSignal();
     return stopTransmissionSignal;
+  }, []);
+
+  useEffect(() => {
+    // Keep the portrait requests behind the room's initial assets.
+    const preparePortraits = () => setPortraitsMounted(true);
+    if (document.readyState === "complete") preparePortraits();
+    else window.addEventListener("load", preparePortraits, { once: true });
+    return () => window.removeEventListener("load", preparePortraits);
   }, []);
 
   useEffect(() => {
@@ -231,7 +240,9 @@ export function StrategyRoom() {
       <div ref={foreground} id="room-content" data-room-content className={styles.content}>
         {view === "room" && <section className={styles.roomHome} data-room-home aria-label="The strategy room">
           <div className={refined.roomForeground}>
-          {mapOpen && <TabletopCharacters active={activeCharacter} selected={pinnedCharacter} onPreview={setHoveredCharacter} onSelect={setPinnedCharacter} onClose={closeView} />}
+          {(portraitsMounted || mapOpen) && <div hidden={!mapOpen}>
+            <TabletopCharacters open={mapOpen} active={activeCharacter} selected={pinnedCharacter} onPreview={setHoveredCharacter} onSelect={setPinnedCharacter} onClose={closeView} />
+          </div>}
           </div>
         </section>}
 
